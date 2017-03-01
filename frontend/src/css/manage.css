@@ -1,0 +1,15 @@
+#manage-login-form{
+	max-width: 300px;
+	margin: auto
+}
+
+.pure-input{
+	width: 300px;
+	margin-bottom: 10px
+}
+
+.msg {
+	margin-top: 70px;
+	position: absolute;
+	color: red;
+}
