@@ -35,6 +35,7 @@
 export default {
   data () {
     return {
+      title: 'Home',
       show: false,
       articles: [],
       page_list:[],
@@ -44,8 +45,8 @@ export default {
       next_list:''
     }
   },
-  computed:{
-
+  beforeCreate() {
+    document.title = "Hello"
   },
   created(){
     this.getArticleList(1),

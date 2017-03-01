@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-// import "vueditor/dist/css/vueditor.min.css"
-
 import Home from './vue/home.vue'
 import Detail from './vue/detail.vue'
 import Tag from './vue/tag.vue'
@@ -10,7 +8,8 @@ import About from './vue/about.vue'
 import Manage from './vue/manage.vue'
 import Menu from './vue/menu-comp.vue'
 
-
+import './css/pure-min.css'
+import './css/icon/iconfont.css'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)

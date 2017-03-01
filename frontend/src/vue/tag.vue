@@ -31,7 +31,8 @@ export default {
   },
   created(){
     this.getTag(),
-    this.showmenus()
+    this.showmenus(),
+    document.title = 'Tag'
   },
   methods:{
     showmenus:function() {

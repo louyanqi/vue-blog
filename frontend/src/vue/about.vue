@@ -29,7 +29,8 @@ export default {
     }
   },
   created(){
-    this.showmenus()
+    this.showmenus();
+     document.title = 'About'
   },
   methods:{
     showQQSwitch:function() {

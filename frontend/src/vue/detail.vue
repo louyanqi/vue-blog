@@ -72,8 +72,8 @@
 	  },
       created() {
         this.getArticleDetail();
+        this.showmenus();
         
-        this.showmenus()
       },
       computed:{
         Marked:function() {
@@ -88,6 +88,7 @@
         getArticleFun:function(id){
             this.show=false;
             this.$http.get('http://127.0.0.1:8000/api/article/'+ id + '/?format=json').then(response => {this.article = response.body.data;
+                document.title = this.article.title
                 this.content = this.article.content;
                 this.show=true;
                 this.pre_id = response.body.pre_id;

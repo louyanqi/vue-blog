@@ -137,7 +137,8 @@ export default {
     }
   },
   created(){
-    this.getArticleList()
+    this.getArticleList();
+     document.title = 'Admin'
   },
   computed:{
     getscrollHeight:function() {

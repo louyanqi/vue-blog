@@ -22,6 +22,9 @@ export default {
       msg: '',
     }
   },
+  created() {
+     document.title = 'Login'
+  },
   methods:{
     logIn:function() {
       this.$http.post('http://127.0.0.1:8000/api/login/',{

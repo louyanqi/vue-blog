@@ -21,7 +21,8 @@ export default {
     }
   },
   mounted(){
-    this.requestUser()
+    this.requestUser();
+     document.title = 'Manage'
   },
   methods:{
     requestUser:function() {
