@@ -11,15 +11,15 @@
                   </li>
 
                   <li class="pure-menu-item">
-                      <a href="/#/manage" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-home"></i>Manage</a>
+                      <a href="#/manage" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-home"></i>Manage</a>
                   </li>
 
                   <li class="pure-menu-item">
-                      <a href="/#/tag" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-category"></i>Tag</a>
+                      <a href="#/tag" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-category"></i>Tag</a>
                   </li>
 
                   <li class="pure-menu-item">
-                      <a href="/#/about" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-about-copy"></i>About</a>
+                      <a href="#/about" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-about-copy"></i>About</a>
                   </li>
               </ul>
               <i @click="menuoff" class="iconfont icon-left"></i>
@@ -28,9 +28,9 @@
 
       <div id="top-menu" class="pure-menu pure-menu-horizontal animated fadeIn">
           <a href="#" class="pure-menu-heading pure-menu-link">Hello</a>
-          <span class="pure-menu-list"><a href="/#/tag" class="pure-menu-link">Tag</a></span>
-          <span class="pure-menu-list"><a href="/#/manage" class="pure-menu-link">Manage</a></span>
-          <a style="float: right" href="/#/about" class="pure-menu-link">About</a>
+          <span class="pure-menu-list"><a href="#/tag" class="pure-menu-link">Tag</a></span>
+          <span class="pure-menu-list"><a href="#/manage" class="pure-menu-link">Manage</a></span>
+          <a style="float: right" href="#/about" class="pure-menu-link">About</a>
       </div>
     </div>
 </template>
