@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <div id="app" :style="appSlide">
+    
+        <menu-comp v-if="menuShow" v-on:menuon="push" v-on:menuoff="pull"></menu-comp>
+
+        <transition name="content-fade">
+            <router-view v-on:showmenus="menuShowOn"></router-view>
+            <router-view v-on:watchlogin="menuShowOff" name="manage"></router-view>
+        </transition>
+    	
+    </div>
+    <script src="/src/js/js.cookie.js"></script>
+    <script src="dist/build.js"></script>
+  </body>
+</html>
