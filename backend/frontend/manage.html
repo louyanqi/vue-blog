@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/manage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pure-min.css' %}">
+    <script src="{% static 'js/vue.js' %}"></script>
+    <script src="{% static 'js/axios.min.js' %}"></script>
+    <script src="{% static 'js/marked.min.js' %}"></script>
+</head>
+<body>
+<div id="app">
+	<div id="layout" class="content pure-g" v-show="!writeModelShow">
+        <!-- 左侧菜单栏-->
+        <div id="nav" class="pure-u">
+            <div class="pure-menu">
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item"><a href="/#/" class="pure-menu-link">返回首页</a></li>
+                    <li  class="pure-menu-item"><a class="pure-menu-link">退出</a></li>
+                    <div class="menu-solid"></div>
+                    <li @click="addNewArticle" class="pure-menu-item"><a class="pure-menu-link">新建文章</a></li>
+                    <li  class="pure-menu-item"><a :class="{active: allArticleActive}" class="pure-menu-link">所有文章</a></li>
+                    <li @click="getTag" class="pure-menu-item"><a class="pure-menu-link">所有标签 [[tagIcon]]</a></li>
+                    <li @click="addTagBtn" v-show="newTag" class="pure-menu-item"><a class="pure-menu-link">新建标签</a></li>
+                    <li v-show="tagInput" class="pure-menu-item"><input @keyup.enter="postTag" v-model="tagName" class="tag-input"></li>
+                    <li @click="delTagBtn" v-show="newTag" class="pure-menu-item"><a class="pure-menu-link">删除标签</a></li>
+                    <li v-for="tag in tags" class="pure-menu-item"><a @click="clickTag(tag)" :class="{active: tag.tag_active}" class="pure-menu-link" id="tag-link">[[tag.name]]</a><span v-show="delTagIcon" @click="deleteTag(tag.id)" class="tag-delete-icon">x</span></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 中间文章列表栏 -->
+        <div id="list" class="pure-u-1">
+            <div @click="getArticleInfo(article)" v-for="article in articles" :class="{selected: article.article_active}" class="article-item">
+                <h4 class="article-title">[[article.title]]</h4>
+                 <span class="admin-date">发表于[[article.create_time]]</span>
+                <p class="article-desc">
+                    <span v-for="tag in article.tag">[[tag.name]] | </span>
+                </p>
+            </div>
+        </div>
+
+        <!-- 右侧编辑栏 -->
+        <div id="editor-main" class="pure-u-1">
+            <div class="article-content">
+                <div v-show="msgShow" class="message animated fadeIn">[[msg]] <span @click="closeMsg" class="close-icon">x</span></div>
+                <div class="article-content-header">
+                    <input v-model="article_info.title" class="article-input-title">
+                </div>
+                <div class="tool">
+                    <a v-for="article_tag in article_info.tag" class="tags">[[article_tag.name]]</a>
+                    <span @click="showAddArtTagLi" v-show="addArticleTagIcon"  class="add-article-tag-icon" title="添加标签">+</span>
+                    <div v-show="tagList" class="tag-box">
+                        <ul style="background-color: black" class="pure-menu-list">
+                            <li @click="addArticleTag(tag.id)" v-for="tag in articleTagList" class="pure-menu-item"><a id="add-article-tag-link" class="pure-menu-link">[[tag.name]]</a></li>
+
+                        </ul>
+                    </div>
+                    <button @click="deleteArticle" id="tool-btn" class="pure-button">删除文章</button>
+                    <button @click="updateArticle" v-show="postArticleBtn"  id="tool-btn" class="pure-button">修改保存</button>
+                    <button @click="addNewArticlePost" v-show="addNewArticleBtn" id="tool-btn" class="pure-button">新建保存</button>
+                    <button @click="writeModelSwitch" id="tool-btn" class="pure-button">写作模式</button>
+
+                </div>
+
+                <div>
+                    <div id="test"></div>
+                    <textarea v-model="article_info.content" id="article-textarea" class="article-textarea" :style="{height: (getscrollHeight-160) + 'px'}">
+                    </textarea>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 写作模式 -->
+     <div v-show="writeModelShow" class="write-model" :style="{height: getscrollHeight + 'px'}">
+        <div id="write-page">
+            <div id="editor-main" class="pure-u-1">
+                <div class="article-content">
+                    <div v-show="msgShow" class="message animated fadeIn">[[msg]] <span @click="closeMsg" class="close-icon">x</span></div>
+                    <div class="article-content-header">
+                        <input v-model="article_info.title" class="article-input-title">
+                    </div>
+                    <div class="tool">
+                        <a v-for="article_tag in article_info.tag" class="tags">[[article_tag.name]]</a>
+                        <span @click="showAddArtTagLi" v-show="addArticleTagIcon"  class="add-article-tag-icon" title="添加标签">+</span>
+                        <div v-show="tagList" class="tag-box">
+                            <ul style="background-color: black" class="pure-menu-list">
+                                <li @click="addArticleTag(tag.id)" v-for="tag in articleTagList" class="pure-menu-item"><a id="add-article-tag-link" class="pure-menu-link">[[tag.name]]</a></li>
+
+                            </ul>
+                        </div>
+                        <button @click="updateArticle" v-show="postArticleBtn"  id="tool-btn" class="pure-button">修改保存</button>
+                        <button @click="addNewArticlePost" v-show="addNewArticleBtn" id="tool-btn" class="pure-button">新建保存</button>
+                        <button @click="writeModelSwitch" id="tool-btn" class="pure-button">返回</button>
+
+                    </div>
+
+                    <div>
+                        <div id="test"></div>
+                        <textarea v-model="article_info.content" id="article-textarea" class="article-textarea" :style="{height: (getscrollHeight-160) + 'px'}">
+                        </textarea>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="show-page">
+            <div class="article-content">
+                <div class="article-content-header">
+                    <div v-html="article_info.title" class="article-input-title"></div>
+                </div>
+
+                <div v-html="Marked">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    vm = new Vue({
+        el: '#app',
+        data: {
+            test: '123123',
+            articles:[],
+            tags:[],
+            tagIcon: '>',
+            article_info: '',
+            scrollHeight:'',
+            msgShow:false,
+            allArticleActive:'',
+            newTag:false,
+            tagInput:false,
+            tagName:'',
+            msg: '',
+            delTagIcon:false,
+            tagList:false,
+            articleTagList:[],
+            postArticleBtn:false,
+            addNewArticleBtn:false,
+            addArticleTagIcon:true,
+            content:'',
+            writeModelShow:false
+        },
+        delimiters: ["[[", "]]"],
+        create(){
+            this.getArticleList(),
+            this.requestUser()
+        },
+        computed:{
+            getscrollHeight:function() {
+                this.height = document.body.scrollHeight
+                console.log(this.height)
+                console.log('123')
+                return document.body.scrollHeight
+            },
+            getscrollWidth:function() {
+                
+                this.width = document.body.scrollWidth
+                return document.body.scrollWidth
+                console.log(this.width)
+            },
+            Marked:function() {
+               
+                return marked(this.content)
+            }
+        },
+        methods:{
+            requestUser:function() {
+              axios.get('http://127.0.0.1:8000/api/request_user/', {
+                headers:{
+                  Authorization: 'Token ' + Cookies.get('token')
+                }
+              }).then(function(response) {
+                
+              })
+              .catch(function(error){
+                window.location.href = "/#/login/"
+              })
+            },
+            writeModelSwitch:function() {
+                this.writeModelShow = !this.writeModelShow
+            },                     
+            logOut:function() {
+                Cookies.remove('token');
+                location.reload()   
+            },
+            getArticleList:function() {
+                var self = this;
+                axios.get('http://127.0.0.1:8000/api/articles_admin/').then(function(response){
+                    self.articles = response.data;
+                    self.allArticleActive = true;
+                    for (var t in self.tags){
+                      self.tags[t].tag_active = false
+                    };
+                    self.getArticleInfo(self.articles[0])
+                })
+                .catch(function(error){
+                    // error
+                })
+            },
+            // 显示某一文章
+            getArticleInfo:function(article){
+                var self = this;
+                var id = article.id;
+                self.postArticleBtn = true;
+                self.addNewArticleBtn = false;
+                for (var a in self.articles){
+                    self.articles[a].article_active = false
+                };
+                axios.get('http://127.0.0.1:8000/api/article_admin/'+ id + '/').then(function(response){
+                    console.log(self.article_info)
+                    self.article_info = response.data;
+                    console.log(self.article_info)
+                    
+                    // article.article_active = true;
+                    // self.content = self.article_info.content
+                })
+                .catch(function(error){
+
+                })
+            },
+            // // get标签的函数模版
+            getTagFun:function() {
+                var self = this;
+                axios.get('http://127.0.0.1:8000/api/tags_admin/').then(function(response){
+                self.tags = response.data;
+                self.tagIcon = 'v';
+                self.newTag = true;
+              })
+            },
+            // // 显示所有标签
+            getTag:function() {
+                var self = this;
+              if (self.tags.length > 0){
+                self.tags = [];
+                self.tagIcon = '>';
+                self.newTag = !self.newTag;
+              }else{
+                self.getTagFun()
+              }
+            },
+            // 显示标签下的所有文章
+            clickTag:function(tag) {
+                var self = this;
+                for (var t in self.tags){
+                  self.tags[t].tag_active = false
+                }
+                axios.get('http://127.0.0.1:8000/api/articles_admin/?format=json&tag='+tag.id).then(function(response){
+                  self.articles = response.data;
+                  self.allArticleActive = false;
+                  tag.tag_active = !tag.tag_active;
+                })
+            },
+            // 修改文章
+            updateArticle:function() {
+                var self = this;
+                axios.put('http://127.0.0.1:8000/api/article_admin/'+self.article_info.id+'/',{
+                    id:self.article_info.id,
+                    title: self.article_info.title,
+                    content: self.article_info.content
+              }).then(function(response) {
+                self.msg = '保存成功';
+                self.msgShow = true;
+                self.getArticleInfo(self.article_info);
+                self.getArticleList()
+              })
+            },
+            closeMsg:function() {
+                this.msgShow = !this.msgShow
+            },
+            // 显示新建标签的input
+            addTagBtn:function() {
+                this.tagInput = !this.tagInput
+            },
+            // 新建标签
+            postTag:function() {
+                var self = this;
+                axios.post('http://127.0.0.1:8000/api/tags_admin/?format=json', {
+                    tag: self.tagName
+                }).then(function(response){
+                    self.msg = '标签创建成功';
+                    self.msgShow = true;
+                    self.getTagFun();
+                    self.tagInput = false;
+                    self.tagName=''
+                })
+            },
+            // 显示标签删除按钮
+            delTagBtn:function() {
+                this.delTagIcon = !this.delTagIcon
+            },
+            deleteTag:function(id) {
+                var self = this;
+                axios.delete('http://127.0.0.1:8000/api/tag/'+id+'/',{
+                    id:id
+                }).then(function(response) {
+                    alert('delete it!!')
+                    self.getTagFun()
+                })
+            },
+            // 显示可添加标签的列表
+            showAddArtTagLi:function() {
+                var self = this;
+                self.tagList = !self.tagList
+                axios.get('http://127.0.0.1:8000/api/tags_admin/?format=json').then(function(response){
+                self.articleTagList = response.data;
+              })
+            },
+            // 给文章添加标签
+            addArticleTag:function(id) {
+                var self = this;
+                var article_id = self.article_info.id
+                axios.post('http://127.0.0.1:8000/api/article_admin/'+article_id+'/',{
+                    tag_id:id
+                }).then(function(response){
+                    self.getArticleInfo(self.article_info)
+                })
+            },
+            addNewArticle:function() {
+                var self = this;
+                self.postArticleBtn = false;
+                self.addNewArticleBtn = true;
+                self.article_info = [];
+                self.addArticleTagIcon = false;
+                for (var a in self.articles){
+                    self.articles[a].article_active = false
+                };
+            },
+            addNewArticlePost:function() {
+                var self = this;
+                axios.post('http://127.0.0.1:8000/api/articles_admin/', {
+                    title: self.article_info.title,
+                    content: self.article_info.content
+                }).then(function(response){
+                    self.getArticleList();
+                    self.addArticleTagIcon = true
+                })
+            },
+            deleteArticle:function() {
+                var self = this;
+                var article_id = self.article_info.id
+                axios.delete('http://127.0.0.1:8000/api/article_admin/'+article_id+'/').then(function(response) {
+                    self.getArticleList()
+                })
+            }
+        }
+    })
+
+</script>
+
+
+</body>
+</html>

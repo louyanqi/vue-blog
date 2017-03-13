@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/manage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/pure-min.css' %}">
+    <script src="{% static 'js/vue.js' %}"></script>
+    <script src="{% static 'js/axios.min.js' %}"></script>
+</head>
+<body>
+<div id="app">
+	<h1 v-for="article in articles">[[article.title]]</h1>
+	<h1 @click="getArticleList">[[test]]</h1>
+	<p>[[article_info]]</p>
+</div>
+
+<script>
+ new Vue({
+        el: '#app',
+        data: {
+            test: '123123',
+            articles:[],
+            article_info: ''
+        },
+        delimiters: ["[[", "]]"],
+        mounted(){
+            this.getArticleList()
+        },
+        methods:{
+            writeModelSwitch:function() {
+                this.writeModelShow = !this.writeModelShow
+            },                     
+            logOut:function() {
+                Cookies.remove('token');
+                location.reload()   
+            },
+            getArticleList:function() {
+            	var self = this;
+                axios.get('http://127.0.0.1:8000/api/articles_admin/').then(function(response){
+                    self.articles = response.data;
+                    self.getArticleInfo(self.articles[0]);
+                    console.log(self.articles);  
+                })
+                .catch(function(error){
+                    // error
+                })
+            },
+            getArticleInfo:function(article){
+                var self = this;
+                var id = article.id;
+                self.postArticleBtn = true;
+                self.addNewArticleBtn = false;
+                for (var a in self.articles){
+                    self.articles[a].article_active = false
+                };
+                axios.get('http://127.0.0.1:8000/api/article_admin/'+ id + '/').then(function(response){
+                    console.log(self.article_info)
+                    self.article_info = response.data;
+                    console.log(self.article_info)
+                    
+                    // article.article_active = true;
+                    // self.content = self.article_info.content
+                })
+                .catch(function(error){
+
+                })
+            },
+        }
+    })
+</script>
+</body>
+</html>

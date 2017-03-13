@@ -1,0 +1,46 @@
+.article_list{
+	margin: 60px auto;
+    max-width: 60%;
+}
+
+#main-tag{
+	max-width: 60%;
+	margin: auto;
+	height: auto;
+	margin-top: 60px;
+}
+
+.tag {
+	width: 100px;
+	height: 40px;
+	background-color: #353535;
+	border: #353535 solid;
+	color: white;
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	transition: 0.5s;
+}
+
+.tag:hover,
+.tag:focus{
+	border:#4e4e4e solid;
+}
+
+.tag-name{
+	position: absolute;
+	transform: translate(-50%, -50%);
+	position: absolute;
+	left: 50%;
+	top: 50%
+}
+
+.tag.active {
+	background-color: #d2cfcf;
+	border: #d2cfcf solid;
+	color: black;
+}
+.tag.active:hover,
+.tag.active:focus{
+	border:#e6e5e5 solid;
+}

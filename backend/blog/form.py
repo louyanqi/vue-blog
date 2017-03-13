@@ -1,9 +1,6 @@
 from django import forms
-from .models import Article
+from ckeditor.fields import RichTextFormField
 
 
-class UploadForm(forms.ModelForm):
-
-    class Meta:
-        model = Article
-        fields=['image']
+class EditorForm(forms.Form):
+    content = RichTextFormField()

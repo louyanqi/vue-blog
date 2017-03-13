@@ -98,11 +98,16 @@ def article_detail_admin(request, article_id):
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
         data = request.data
-        tag_id = data.get('tag_id')
-        new_tag = Tag.objects.get(id=tag_id)
-        article_info.tag.add(new_tag)
-        article_info.save()
-        return Response(status=status.HTTP_200_OK)
+        tag_id_list = data.get('tags_id')
+        for tag_id in tag_id_list:
+            print(article_info.tag.count())
+            if int(article_info.tag.count()) >= 5:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            else:
+                new_tag = Tag.objects.get(id=tag_id)
+                article_info.tag.add(new_tag)
+                article_info.save()
+            return Response(status=status.HTTP_200_OK)
     if request.method == 'PUT':
         data = request.data
         id = data.get('id')
