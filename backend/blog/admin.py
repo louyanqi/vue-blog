@@ -11,7 +11,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ['belong_to', 'comment_user', 'create_time']
+    list_display = ['belong_to', 'parent', 'comment_user', 'create_time']
     search_fields = ['belong_to', 'comment_user', 'create_time']
 
 

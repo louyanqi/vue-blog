@@ -22,6 +22,7 @@ class Article(models.Model):
     create_time = models.DateTimeField(default=timezone.now)
     update_time = models.DateTimeField(default=timezone.now)
     tag = models.ManyToManyField(to=Tag, related_name='article', blank=True)
+    comment_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -41,7 +42,10 @@ class Comment(models.Model):
     content = models.TextField()
     comment_user = models.CharField(default='匿名', max_length=30)
     create_time = models.DateTimeField(default=timezone.now)
+    child_reply_input = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.comment_user
 
 # from faker import Factory
 # fake = Factory.create()

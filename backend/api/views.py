@@ -100,7 +100,6 @@ def article_detail_admin(request, article_id):
         data = request.data
         tag_id_list = data.get('tags_id')
         for tag_id in tag_id_list:
-            print(article_info.tag.count())
             if int(article_info.tag.count()) >= 5:
                 return Response(status=status.HTTP_400_BAD_REQUEST)
             else:
@@ -130,7 +129,7 @@ def article_detail_admin(request, article_id):
 def comment(request):
     if request.method == 'GET':
         article_id = request.GET.get('article_id')
-        comment_list = Comment.objects.all().filter(belong_to_id=article_id).order_by('-id')
+        comment_list = Comment.objects.all().filter(belong_to_id=article_id, parent=None).order_by('-id')
         serializer = CommentSerializer(comment_list, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
@@ -144,6 +143,10 @@ def comment(request):
         else:
             comment_info = Comment(belong_to_id=article_id, content=comment_content, comment_user=comment_user)
         comment_info.save()
+        article_info = Article.objects.get(id=article_id)
+        article_info.comment_num = Comment.objects.all().count()
+        article_info.save()
+        print(article_info.comment_num)
         return Response(status=status.HTTP_200_OK)
 
 

@@ -1,13 +1,19 @@
 from django.shortcuts import render
 from .form import EditorForm
-from django.http import HttpResponse
+from .models import Comment
 
 
 def test(request):
-
-    return render(request, 'test.html', {'test': 'adsada'})
+    comment_list = Comment.objects.all()
+    print(comment_list)
+    context = {
+        'comment_list': comment_list
+    }
+    return render(request, 'test.html', context)
 
 
 def manage(request):
     form = EditorForm
     return render(request, 'manage.html', {'form': form})
+
+

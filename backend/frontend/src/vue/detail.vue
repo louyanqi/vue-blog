@@ -8,10 +8,11 @@
             </div>
             <hr>
             <div>
-                <span @click="getPre">{{pre_title}}</span>
-                <span @click="getNext" style="float: right">{{next_title}}</span>
+                <span v-if="pre_title != '没有了' " class="next-article-btn" @click="getPre"> < {{pre_title}}</span>
+                <span v-if="next_title != '没有了' " class="next-article-btn" @click="getNext" style="float: right">{{next_title}} > </span>
             </div>
 
+            <!-- 评论 -->
             <button v-show="!addComment" @click="showComment" class="pure-form pure-button animated fadeIn">添加评论</button>
 
             <div v-show="addComment" class="pure-form animated fadeIn">
@@ -23,21 +24,26 @@
                 </div>
             </div>
             
-            <ul class="pure-menu-list">
+            <div class="comment-top">{{article.comment_num}}条评论</div>
+            <ul class="pure-menu-list" style="border-top: 1px solid #eaeaea;padding-top: 20px">
                 <li v-for="comment in commentList" class="comment">
                     <div style="height: 35px">
                         <img style="float: left;" class="avatar" src="/static/image/default.png">
                         <div class="username">
                             {{comment.comment_user}}
-                            <span v-if="comment.parent"><span class="rep">回复</span>{{comment.parent.comment_user}}</span>
-                            <span class="comment-date">{{comment.create_time}}</span>
                         </div>
                     </div>
-                    <div>
+                    <div class="comment-content">
                         {{comment.content}}
                     </div>
-                    <div @click="showReplySwitch(comment)" class="reply-btn">回复</div>
-                    <div v-show="comment.reply_window" class="pure-form reply animated fadeIn">
+
+                    <div style="margin-top: 5px">
+                        <span class="comment-date">{{comment.create_time}}</span>
+                        <span @click="showReplySwitch(comment)" class="reply-btn">回复</span>
+                    </div>
+
+                    <!-- 评论框 -->
+                    <div style="margin-top: 15px;margin-left: 40px;" v-show="comment.reply_window" class="pure-form reply animated fadeIn">
                         <input v-model="comment_user" type="text" class="pure-input-3-4" placeholder="你的名字...">
                         <textarea v-model="comment_content" class="pure-input-3-4" placeholder="写下你的评论..."></textarea>
                         <div style="width: 75%">
@@ -45,6 +51,41 @@
                             <button @click="showReplySwitch(comment)" class="pure-button pure-input-1-6">取消</button>
                         </div>
                     </div>
+                    
+                    <!-- 子评论 -->
+                    <div style="margin-top: 15px">
+                        <div v-for="child_comment in comment.child_comments" class="child-comment">
+                            <div class="comment-container">
+                                <div style="height: 35px">
+                                    <img style="float: left;" class="avatar" src="/static/image/default.png">
+                                    <div class="username">
+                                        {{child_comment.comment_user}} <span style="font-size: 14px;color: #929292">回复</span> {{child_comment.parent.comment_user}}
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    {{child_comment.content}}
+                                </div>
+
+                                <div style="margin-top: 5px">
+                                    <span class="comment-date">{{child_comment.create_time}}</span>
+                                    <span @click="childReplySwitch(child_comment)" class="reply-btn">回复</span>
+                                </div>
+
+                                <!-- 评论框 -->
+                                <div style="margin-top: 15px;margin-left: 40px" v-show="child_comment.child_reply_input" class="pure-form reply animated fadeIn">
+                                    <input v-model="comment_user" type="text" class="pure-input-3-4" placeholder="你的名字...">
+                                    <textarea v-model="comment_content" class="pure-input-3-4" placeholder="写下你的评论..."></textarea>
+                                    <div style="width: 75%">
+                                        <button @click="postComment(comment)" class="pure-button pure-input-1-6">评论</button>
+                                        <button @click="childReplySwitch(child_comment)" class="pure-button pure-input-1-6">取消</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+
                 </li>
             </ul>
         </div>
@@ -74,7 +115,6 @@
       created() {
         this.getArticleDetail();
         this.showmenus();
-        
       },
       computed:{
         Marked:function() {
@@ -83,6 +123,12 @@
           }
       },
 	  methods:{
+        childReplySwitch:function(child_comment) {
+            var self = this;
+            self.comment_user = '';
+            self.comment_content = '';
+            child_comment.child_reply_input = ! child_comment.child_reply_input
+        },
         showmenus:function() {
           this.$emit('showmenus')
         },
@@ -97,12 +143,14 @@
                 self.next_id = response.data.next_id;
                 self.pre_title = response.data.pre_title;
                 self.next_title = response.data.next_title;
-                window.location.href="/#/article/"+id+"/"
+                window.location.href="/#/article/"+id+"/";
+                self.id = id;
                 self.getComment(id);
             });
         },
         getArticleDetail:function() {
             this.getArticleFun(this.id);
+
         },
         getPre:function() {
             document.body.scrollTop = 0;
@@ -110,7 +158,6 @@
         },
         getNext:function(){
             document.body.scrollTop = 0;
-            console.log(this.next_id)
             this.getArticleFun(this.next_id);
         },
         showComment:function() {
@@ -123,7 +170,7 @@
         },
         getComment:function(id) {
             var self = this;
-            axios.get('http://127.0.0.1:8000/api/comments/?format=json&article_id='+id).then(function(response){
+            axios.get('http://127.0.0.1:8000/api/comments/?article_id='+id).then(function(response){
                 for(var a in response.data){
                     response.data[a].reply_window = false
                 }
@@ -132,7 +179,8 @@
         },
         postComment:function(comment) {
             var self = this;
-            axios.post('http://127.0.0.1:8000/api/comments/?format=json', {
+            
+            axios.post('http://127.0.0.1:8000/api/comments/', {
                 article_id: self.id,
                 comment_user: self.comment_user,
                 comment_content: self.comment_content,
@@ -141,6 +189,7 @@
                 self.getComment(self.id);
                 self.comment_user = '';
                 self.comment_content = '';
+                self.article.comment_num += 1
             })
             .catch(function(error){
 
@@ -149,7 +198,6 @@
         showReplySwitch:function(comment) {
             comment.reply_window = !comment.reply_window;
             this.addComment = false;
-            console.log(comment.reply_window)
         }
 	  }
 	}

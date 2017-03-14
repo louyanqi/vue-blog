@@ -28,13 +28,14 @@
 }
 
 .comment-date{
-	margin-left: 10px;
+	margin-left: 40px;
 	font-size: 13px;
     color: #777777;
 }
 
 .comment{
-	margin-bottom: 20px
+	margin-bottom: 20px;
+    border-bottom: 1px solid #eaeaea;
 }
 
 #comment-btn{
@@ -43,8 +44,8 @@
 }
 
 .pure-form{
-	margin-top: 30px;
-	margin-bottom: 85px
+	margin-top: 80px;
+	margin-bottom: 80px
 }
 
 .pure-button.pure-input-1-6{
@@ -53,10 +54,10 @@
 }
 
 .reply-btn{
-	width: 27px;
 	cursor: pointer;
 	font-size: 13px;
     color: #929292;
+    margin-left: 5px
 }
 
 .reply-btn:hover,
@@ -67,11 +68,31 @@
 
 .pure-form.reply{
 	margin-top: 0;
-	margin-bottom: 80px
+	margin-bottom: 40px
 }
 
 .rep{
 	font-size: 13px;
 	color: #929292;
 	margin-right: 4px
+}
+
+.child-comment{
+	padding-left: 15px;
+	padding-top: 15px;
+    border-left: 2px solid #797171;
+}
+
+.comment-container{
+	border-bottom: 1px dashed #eaeaea;
+    padding-bottom: 15px;
+}
+
+.comment-content {
+	font-size: 14px;
+	padding-left: 40px;
+}
+
+.next-article-btn{
+	cursor: pointer;
 }
