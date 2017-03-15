@@ -19,6 +19,7 @@ const router = new VueRouter({
 		{ path: '/', component: Home},
 		{ path: '/article/:id', name: 'article', component: Detail},
     { path: '/tag', component: Tag},
+    { path: '/tag/:name', component: Tag},
     { path: '/about', component: About},
     { path: '/login', component: Login},
 	]

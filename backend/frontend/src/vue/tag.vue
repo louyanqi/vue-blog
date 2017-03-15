@@ -27,7 +27,8 @@ export default {
       show: true,
       articles: [],
       isActive:false,
-      tags: []
+      tags: [],
+      name: this.$route.params.name
     }
   },
   created(){
@@ -41,7 +42,7 @@ export default {
     },
     getTag:function() {
       var self = this;
-      axios.get('http://127.0.0.1:8000/api/tags/?format=json').then(function(response) {
+      axios.get('http://127.0.0.1:8000/api/tags/').then(function(response) {
         for (var t in response.data){
           response.data[t].tag_active = false
         }
@@ -53,22 +54,26 @@ export default {
       if(tag.tag_active == true){
         tag.tag_active = false;
         self.articles = '';
+        console.log('tagatagag')
       }else if(self.articles.length>0){
         for (var t in self.tags){
           self.tags[t].tag_active = false
         }
 
-        axios.get('http://127.0.0.1:8000/api/articles_admin/?format=json&tag='+tag.id).then(function(response) {
+        axios.get('http://127.0.0.1:8000/api/articles_admin/?tag='+tag.id).then(function(response) {
           self.articles = response.data;
-          tag.tag_active = !tag.tag_active;
+          
+          window.location.href = "/#/tag/"+tag.name;
+          tag.tag_active = true;
         })
         .catch(function(error){
           // error
         })
       }else{
-        axios.get('http://127.0.0.1:8000/api/articles_admin/?format=json&tag='+tag.id).then(function(response) {
+        axios.get('http://127.0.0.1:8000/api/articles_admin/?tag='+tag.id).then(function(response) {
           self.articles = response.data;
-          tag.tag_active = !tag.tag_active;
+          tag.tag_active = true;
+          window.location.href = "/#/tag/"+tag.name;
         })
         .catch(function(error){
           // error

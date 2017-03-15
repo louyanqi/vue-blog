@@ -10,11 +10,14 @@
             <div class="article-content pure-u-3-4">
               <router-link :to="{ name: 'article', params: {id: article.id}}" class="article-head">{{article.title}}</router-link>
               <div class="date">{{article.create_time}}</div>
-              <p>
+              <p style="margin-bottom: 5px">
                   {{article.abstract}} ... 
               </p>
+            
+              <span  class="home-tag" v-for="tag in article.tag">{{tag.name}}</span>
             </div>
-            <div v-if="article.image != null" class="article-image pure-u-1-4" :style="{'background-image': 'url(' + article.image +')'}"></div>
+            <!-- :style="{'background-image': 'url(' + article.image +')'}" -->
+            <div v-if="article.image != null" class="article-image pure-u-1-4" style="background-image: url('http://127.0.0.1:8000/media/upload/49DIEGW0TSEGQIDZ2DOX.jpg');"></div>
             
           </div>
 
@@ -68,7 +71,7 @@ export default {
             self.now_page = response.data.now_page;
             self.pre_list = response.data.pre_list;
             self.next_list = response.data.next_list;
-            
+            console.log(self.articles)
         })
         .catch(function(error){
 

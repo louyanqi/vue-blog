@@ -150,7 +150,6 @@
         },
         getArticleDetail:function() {
             this.getArticleFun(this.id);
-
         },
         getPre:function() {
             document.body.scrollTop = 0;

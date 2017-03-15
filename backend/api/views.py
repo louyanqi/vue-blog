@@ -112,7 +112,6 @@ def article_detail_admin(request, article_id):
         id = data.get('id')
         title = data.get('title')
         content = data.get('content')
-
         article_info = Article.objects.get(id=id)
         article_info.title = title
         article_info.content = content
@@ -146,7 +145,6 @@ def comment(request):
         article_info = Article.objects.get(id=article_id)
         article_info.comment_num = Comment.objects.all().count()
         article_info.save()
-        print(article_info.comment_num)
         return Response(status=status.HTTP_200_OK)
 
 
