@@ -1,6 +1,6 @@
 <template>
 <div>
-	<div class="header animated fadeIn">
+	<div class="header animated fadeIn" style="background-image: url('src/image/head.jpeg');">
         <h1>Manage</h1>
     </div>
     <div class="pure-form" id="manage-login-form">

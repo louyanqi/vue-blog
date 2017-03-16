@@ -1,24 +1,22 @@
 <template>
   <div>
+    
     <div id="main">
-        <div class="header animated fadeIn">
+        <div class="header animated fadeIn" style="background-image: url('src/image/head.jpeg');">
             <h1>Hello</h1>
+            <button title="点击切换图片" class="pure-button click-btn">click!</button>
         </div>
         <div class="articles">
           <div v-for="article in articles" class="article animated fadeIn pure-g">
-            
             <div class="article-content pure-u-3-4">
               <router-link :to="{ name: 'article', params: {id: article.id}}" class="article-head">{{article.title}}</router-link>
               <div class="date">{{article.create_time}}</div>
               <p style="margin-bottom: 5px">
                   {{article.abstract}} ... 
               </p>
-            
-              <span  class="home-tag" v-for="tag in article.tag">{{tag.name}}</span>
+              <router-link :to=" '/tag/' + tag.name" class="home-tag" v-for="tag in article.tag">{{tag.name}}</router-link>
             </div>
-            <!-- :style="{'background-image': 'url(' + article.image +')'}" -->
-            <div v-if="article.image != null" class="article-image pure-u-1-4" style="background-image: url('http://127.0.0.1:8000/media/upload/49DIEGW0TSEGQIDZ2DOX.jpg');"></div>
-            
+            <div v-if="article.image != null" class="article-image pure-u-1-4" :style="{'background-image': 'url(' + article.image +')'}"></div>
           </div>
 
           <div class="pagination">

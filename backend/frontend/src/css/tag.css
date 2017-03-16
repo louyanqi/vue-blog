@@ -28,17 +28,22 @@
 }
 
 .tag-name{
+
 	position: absolute;
 	transform: translate(-50%, -50%);
 	position: absolute;
 	left: 50%;
-	top: 50%
+	top: 50%;
+	color: white;
+    text-decoration: none;
+}
+.tag-name.active{
+	color: black
 }
 
 .tag.active {
 	background-color: #d2cfcf;
 	border: #d2cfcf solid;
-	color: black;
 }
 .tag.active:hover,
 .tag.active:focus{

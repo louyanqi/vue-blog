@@ -39,8 +39,11 @@ def create_article_abstract(sender, instance, created, **kwargs):
 class Comment(models.Model):
     belong_to = models.ForeignKey(to=Article, related_name='comments')
     parent = models.ForeignKey(to='self', related_name='child_comments', null=True, blank=True)
+    reply = models.ForeignKey(to='self', related_name='who_reply', null=True, blank=True)
     content = models.TextField()
     comment_user = models.CharField(default='匿名', max_length=30)
+    send_email = models.BooleanField(default=False)
+    user_email = models.EmailField(max_length=30, null=True, blank=True)
     create_time = models.DateTimeField(default=timezone.now)
     child_reply_input = models.BooleanField(default=False)
 

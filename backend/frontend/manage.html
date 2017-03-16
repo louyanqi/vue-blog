@@ -153,18 +153,13 @@
         computed:{
             getscrollHeight:function() {
                 this.height = document.body.scrollHeight
-                console.log(this.height)
-                console.log('123')
                 return document.body.scrollHeight
             },
             getscrollWidth:function() {
-                
                 this.width = document.body.scrollWidth
                 return document.body.scrollWidth
-                console.log(this.width)
             },
             Marked:function() {
-               
                 return marked(this.content)
             }
         },
@@ -212,9 +207,7 @@
                     self.articles[a].article_active = false
                 };
                 axios.get('http://127.0.0.1:8000/api/article_admin/'+ id + '/').then(function(response){
-                    console.log(self.article_info)
                     self.article_info = response.data;
-                    console.log(self.article_info)
                     
                     // article.article_active = true;
                     // self.content = self.article_info.content
@@ -246,10 +239,11 @@
             // 显示标签下的所有文章
             clickTag:function(tag) {
                 var self = this;
+                console.log(tag)
                 for (var t in self.tags){
                   self.tags[t].tag_active = false
                 }
-                axios.get('http://127.0.0.1:8000/api/articles_admin/?format=json&tag='+tag.id).then(function(response){
+                axios.get('http://127.0.0.1:8000/api/articles_admin/?tag='+tag.name).then(function(response){
                   self.articles = response.data;
                   self.allArticleActive = false;
                   tag.tag_active = !tag.tag_active;

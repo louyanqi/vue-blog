@@ -1,18 +1,24 @@
 <template>
 <div id="main">
-  <div class="header animated fadeIn">
+  <div class="header animated fadeIn" style="background-image: url('src/image/head.jpeg');"> 
       <h1>Tags</h1>
   </div>
   <div class="pure-g ">
     <div id="main-tag" class="pure-u-1-1">
-      <div v-for="tag in tags" @click="clickTag(tag)" class="tag animated flipInX" :class="{active: tag.tag_active}">
-        <span class="tag-name">{{tag.name}}({{tag.article_num}})</span>
+      <div v-for="tag in tags"  class="tag animated flipInX" :class="{active: tag.tag_active}">
+        <router-link :to=" '/tag/' + tag.name" class="tag-name" :class="{active: tag.tag_active}">{{tag.name}}({{tag.article_num}})</router-link>
       </div>
     </div>
     <div class="article_list pure-u-1-1">
-      <div v-for="article in articles" class="article animated fadeIn">
+      <div v-for="article in articles" class="article animated fadeIn pure-g">
+        <div class="article-content pure-u-3-4">
           <router-link :to="{ name: 'article', params: {id: article.id}}" class="article-head">{{article.title}}</router-link>
           <div class="date">{{article.create_time}}</div>
+          <p style="margin-bottom: 5px">
+              {{article.abstract}} ... 
+          </p>
+        </div>
+        <div v-if="article.image != null" class="article-image pure-u-1-4" :style="{'background-image': 'url(' + article.image +')'}"></div>
       </div>
     </div>
   </div>
@@ -28,13 +34,15 @@ export default {
       articles: [],
       isActive:false,
       tags: [],
-      name: this.$route.params.name
     }
   },
   created(){
     this.getTag(),
     this.showmenus(),
     document.title = 'Tag'
+  },
+  watch:{
+    '$route' : 'getTagArticle'
   },
   methods:{
     showmenus:function() {
@@ -46,40 +54,28 @@ export default {
         for (var t in response.data){
           response.data[t].tag_active = false
         }
-        self.tags = response.data
+        self.tags = response.data;
+        self.getTagArticle()
       })
     },
-    clickTag:function(tag) {
+    getTagArticle:function() {
       var self = this;
-      if(tag.tag_active == true){
-        tag.tag_active = false;
-        self.articles = '';
-        console.log('tagatagag')
-      }else if(self.articles.length>0){
-        for (var t in self.tags){
-          self.tags[t].tag_active = false
-        }
-
-        axios.get('http://127.0.0.1:8000/api/articles_admin/?tag='+tag.id).then(function(response) {
-          self.articles = response.data;
-          
-          window.location.href = "/#/tag/"+tag.name;
-          tag.tag_active = true;
+      for (var t in self.tags){
+        self.tags[t].tag_active = false
+      };
+      var name = this.$route.params.name;
+      axios.get('http://127.0.0.1:8000/api/articles_admin/?tag='+name).then(function(response) {
+        self.articles = response.data.article_data; 
+        var filtered = self.tags.filter(function nowTag(tag){
+          return tag.name == name
         })
-        .catch(function(error){
-          // error
-        })
-      }else{
-        axios.get('http://127.0.0.1:8000/api/articles_admin/?tag='+tag.id).then(function(response) {
-          self.articles = response.data;
-          tag.tag_active = true;
-          window.location.href = "/#/tag/"+tag.name;
-        })
-        .catch(function(error){
-          // error
-        })
-      }
+        filtered[0].tag_active = true
+      })
+      .catch(function(error){
+        // error
+      })
     },
+
   }
 }
 </script>

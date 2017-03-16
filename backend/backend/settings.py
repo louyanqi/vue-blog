@@ -122,6 +122,13 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+EMAIL_HOST = 'smtp.qq.com' # smtp 地址（这里需要注意，如果你和我一样使用 163 邮箱的话，默认 smtp 功能是关闭的，需要去设置开启，并生成一个一次性密码用于连接 smtp 服务）
+EMAIL_HOST_USER = '778617402@qq.com' # 用户
+EMAIL_HOST_PASSWORD = 'wrllmiklnyzrbfee' # 密码
+EMAIL_SUBJECT_PREFIX = u'[美图权限申请系统]' # 为邮件Subject-line前缀,默认是'[django]'
+EMAIL_USE_TLS = True # 与SMTP服务器通信时，是否启动TLS链接(安全链接)。默认是false
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 

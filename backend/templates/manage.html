@@ -30,7 +30,8 @@
                     <li @click="getTag" class="pure-menu-item"><a class="pure-menu-link">所有标签 [[tagIcon]]</a></li>
                     <li @click="addTagBtn" v-show="newTag" class="pure-menu-item"><a class="pure-menu-link">新建标签</a></li>
                     <li v-show="tagInput" class="pure-menu-item"><input @keyup.enter="postTag" v-model="tagName" class="tag-input"></li>
-                    <li @click="delTagBtn" v-show="newTag" class="pure-menu-item"><a class="pure-menu-link">删除标签</a></li>
+                    <li style="margin-bottom: 10px" @click="delTagBtn" v-show="newTag" class="pure-menu-item"><a class="pure-menu-link">删除标签</a></li>
+
                     <li @click="clickTag(tag)" v-show="leftTagListShow" v-for="tag in tags" id="tag"><a :class="{active: tag.tag_active}" >[[tag.name]]</a><span v-show="delTagIcon" @click="deleteTag(tag.id)" class="tag-delete-icon">x</span></li>
                 </ul>
             </div>
@@ -166,13 +167,11 @@
         computed:{
             getscrollHeight:function() {
                 this.height = document.body.scrollHeight
-                console.log(this.height)
                 return document.body.scrollHeight
             },
             getscrollWidth:function() {
                 this.width = document.body.scrollWidth
                 return document.body.scrollWidth
-                console.log(this.width)
             },
             Marked:function() {
                
@@ -224,10 +223,7 @@
                     self.articles[a].article_active = false
                 };
                 axios.get('http://127.0.0.1:8000/api/article_admin/'+ id + '/').then(function(response){
-                    console.log(self.article_info)
                     self.article_info = response.data;
-                    console.log(self.article_info)
-                    
                     // article.article_active = true;
                     // self.content = self.article_info.content
                 })
@@ -258,11 +254,12 @@
             // 显示标签下的所有文章
             clickTag:function(tag) {
                 var self = this;
+                console.log(tag)
                 for (var t in self.tags){
                   self.tags[t].tag_active = false
                 }
-                axios.get('http://127.0.0.1:8000/api/articles_admin/?format=json&tag='+tag.id).then(function(response){
-                  self.articles = response.data;
+                axios.get('http://127.0.0.1:8000/api/articles_admin/?format=json&tag='+tag.name).then(function(response){
+                  self.articles = response.data.article_data;
                   self.allArticleActive = false;
                   tag.tag_active = !tag.tag_active;
                 })
@@ -299,6 +296,10 @@
                     self.getTagFun();
                     self.tagInput = false;
                     self.tagName=''
+                })
+                .catch(function(error){
+                    self.msg = '标签已存在';
+                    self.msgShow = true
                 })
             },
             // 显示标签删除按钮

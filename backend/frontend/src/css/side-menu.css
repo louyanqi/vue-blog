@@ -1,3 +1,6 @@
+
+
+
 a{
     cursor: pointer;
 }
@@ -50,10 +53,43 @@ p{
 }
 
 #top-menu{
-    position: fixed;
+    position: absolute;
     top: 0;
-    background-color: #ffffff;
     z-index: 10;
+    width: 90%;
+    margin-top: 10px;
+    display: block;
+    left: 5%
+}
+
+#top-menu>.top-menu-font{
+    color: white;
+    text-decoration:none;
+    font-size: 22px;
+    margin: 0px 10px 0 10px
+}
+#top-menu>.top-menu-font:hover,
+#top-menu>.top-menu-font:focus{
+    color: #6dadff
+}
+
+
+#left-menu{
+    margin-left: 100px 
+}
+
+#right-menu{
+    float: right;
+}
+
+.pure-button.click-btn{
+    position: absolute;
+    right: 80px;
+    top: 240px;
+    background-color: rgba(0, 128, 0, 0);
+    color: white;
+    border: 2px solid rgba(100, 220, 180, 0.99);
+    border-radius: 8px;
 }
 
 #app {
@@ -84,16 +120,22 @@ p{
 }
 
 .header {
-     margin: 0;
-     color: #333;
-     text-align: center;
-     padding: 2.5em 2em 0;
-     border-bottom: 1px solid #eee;
+    margin: 0;
+    color: #333;
+    text-align: center;
+    padding: 2.5em 2em 0;
+    border-bottom: 1px solid #eee;
+    
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 260px;
  }
     .header h1 {
-        margin: 0.2em 0;
-        font-size: 3em;
+        margin: 0.4em 0;
+        font-size: 4em;
         font-weight: 300;
+        color: white
     }
 
 
@@ -229,6 +271,7 @@ p{
 }
 
 .home-tag{
+    text-decoration: none;
     margin-top: 15px;
     border: 1px solid #7b7b7b;
     margin-right: 3px;

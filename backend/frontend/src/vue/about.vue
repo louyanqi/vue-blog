@@ -1,7 +1,7 @@
 <template>
   
     <div id="main">
-        <div class="header animated fadeIn">
+        <div class="header animated fadeIn" style="background-image: url('src/image/head.jpeg');">
             <h1>About</h1>
         </div>
 

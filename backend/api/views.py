@@ -10,6 +10,8 @@ from .serializers import UserLoginSerializer
 from rest_framework.authtoken.models import Token
 from .paginator import get_page_list
 from django.core.paginator import Paginator
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.mail import send_mail
 
 
 @api_view(['GET', 'POST'])
@@ -49,13 +51,21 @@ def article(request):
 @api_view(['GET', 'POST'])
 def article_admin(request):
     if request.method == 'GET':
-        tag_id = request.GET.get('tag')
-        if tag_id:
-            article_list = Article.objects.all().filter(tag__id=tag_id).order_by('-id')
+        tag_name = request.GET.get('tag')
+        if tag_name:
+            article_list = Article.objects.all().filter(tag__name=tag_name).order_by('-id')
+            tag_info = Tag.objects.get(name=tag_name)
+            serializer = ArticleSerializer(article_list, many=True)
+            tag_serializer = TagSerializer(tag_info)
+            data = {
+                'article_data': serializer.data,
+                'tag_data': tag_serializer.data
+            }
+            return Response(data, status=status.HTTP_200_OK)
         else:
             article_list = Article.objects.all().order_by('-id')
-        serializer = ArticleSerializer(article_list, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer = ArticleSerializer(article_list, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
         data = request.data
         title = data.get('title')
@@ -127,6 +137,7 @@ def article_detail_admin(request, article_id):
 @api_view(['GET', 'POST'])
 def comment(request):
     if request.method == 'GET':
+        print('#' * 65)
         article_id = request.GET.get('article_id')
         comment_list = Comment.objects.all().filter(belong_to_id=article_id, parent=None).order_by('-id')
         serializer = CommentSerializer(comment_list, many=True)
@@ -136,11 +147,30 @@ def comment(request):
         article_id = data.get('article_id')
         comment_user = data.get('comment_user')
         comment_content = data.get('comment_content')
+        user_email = data.get('user_email')
+        send_email = data.get('send_email')
+        print(data.get('parent'))
+        print('#'*65)
         if data.get('parent'):
             parent_id = data.get('parent')
-            comment_info = Comment(belong_to_id=article_id, parent_id=parent_id, content=comment_content, comment_user=comment_user)
+            reply_id = data.get('reply_to')
+            comment_info = Comment(belong_to_id=article_id, reply_id=reply_id, parent_id=parent_id,
+                                   content=comment_content, comment_user=comment_user, send_email=send_email,
+                                   user_email=user_email)
+            parent_info = Comment.objects.get(id=parent_id)
+            print(parent_info.send_email)
+            print('&' * 65)
+            if parent_info.send_email is True:
+                subject = comment_user + '回复你：'
+                message = comment_content
+                send_mail(subject=subject, message=message, from_email='778617402@qq.com',
+                          recipient_list=[parent_info.user_email])
+                print(parent_info.user_email)
+                print('&'*65)
+
         else:
-            comment_info = Comment(belong_to_id=article_id, content=comment_content, comment_user=comment_user)
+            comment_info = Comment(belong_to_id=article_id, content=comment_content, comment_user=comment_user,
+                                   send_email=send_email, user_email=user_email)
         comment_info.save()
         article_info = Article.objects.get(id=article_id)
         article_info.comment_num = Comment.objects.all().count()
@@ -173,9 +203,13 @@ def tag_admin(request):
     if request.method == 'POST':
         data = request.data
         name = data.get('tag')
-        new_tag = Tag(name=name)
-        new_tag.save()
-        return Response({'tag': name}, status=status.HTTP_200_OK)
+        try:
+            Tag.objects.get(name=name)
+            return Response({'msg': '标签已存在'}, status=status.HTTP_400_BAD_REQUEST)
+        except ObjectDoesNotExist:
+            new_tag = Tag(name=name)
+            new_tag.save()
+            return Response({'tag': name}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET', 'POST', 'DELETE'])

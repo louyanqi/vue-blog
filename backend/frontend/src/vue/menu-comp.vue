@@ -26,11 +26,11 @@
           </div>
       </transition>
 
-      <div id="top-menu" class="pure-menu pure-menu-horizontal animated fadeIn">
-          <a href="/#/" class="pure-menu-heading pure-menu-link">Hello</a>
-          <span class="pure-menu-list"><a href="#/tag" class="pure-menu-link">Tag</a></span>
-          <span @click="manageLogin" class="pure-menu-list"><a class="pure-menu-link">Manage</a></span>
-          <a style="float: right" href="#/about" class="pure-menu-link">About</a>
+      <div id="top-menu" class="animated fadeIn">
+          <a href="/#/" id="left-menu" class="top-menu-font">Hello</a>
+          <a href="#/tag" class="top-menu-font">Tag</a>
+          <a @click="manageLogin" class="top-menu-font">Manage</a>
+          <a href="#/about" id="right-menu" class="top-menu-font">About</a>
       </div>
     </div>
 </template>

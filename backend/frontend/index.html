@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en"> 
   <head>
     <meta charset="utf-8">
     <title>{{title}}</title>
@@ -11,8 +11,7 @@
         <menu-comp v-if="menuShow" v-on:menuon="push" v-on:menuoff="pull"></menu-comp>
 
         <transition name="content-fade">
-            <router-view v-on:showmenus="menuShowOn"></router-view>
-            <router-view v-on:watchlogin="menuShowOff" name="manage"></router-view>
+            <router-view v-on:showmenus="menuShowOn" v-on:offmenus="menuShowOff"></router-view>
         </transition>
     	
     </div>
