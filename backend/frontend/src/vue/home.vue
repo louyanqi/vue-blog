@@ -2,10 +2,7 @@
   <div>
     
     <div id="main">
-        <div class="header animated fadeIn" style="background-image: url('src/image/head.jpeg');">
-            <h1>Hello</h1>
-            <button title="点击切换图片" class="pure-button click-btn">click!</button>
-        </div>
+
         <div class="articles">
           <div v-for="article in articles" class="article animated fadeIn pure-g">
             <div class="article-content pure-u-3-4">
@@ -43,7 +40,6 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      title: 'Home',
       show: false,
       articles: [],
       page_list:[],
@@ -51,6 +47,7 @@ export default {
       isActive:true,
       pre_list:'',
       next_list:'',
+      loadShow: true
     }
   },
   beforeCreate() {
@@ -58,9 +55,13 @@ export default {
   },
   created(){
     this.getArticleList(1),
-    this.showmenus()
+    this.showmenus(),
+    this.home()
   },
   methods:{
+    home:function() {
+      this.$emit('home')
+    },
     getArticleList:function(page) {
         var self = this;
         axios.get('http://127.0.0.1:8000/api/articles/?page='+ page).then(function(response) {

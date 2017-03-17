@@ -9,7 +9,7 @@ import Manage from './vue/manage.vue'
 import Menu from './vue/menu-comp.vue'
 import axios from 'axios'
 import './css/pure-min.css'
-import './css/icon/iconfont.css'
+import './js/x-return-top.min.js'
 
 Vue.use(VueRouter)
 
@@ -30,7 +30,8 @@ new Vue({
   router: router,
   data:{
     appSlide: '',
-    menuShow:true
+    menuShow:true,
+    header:'Hello'
   },
   components:{
     'menu-comp': Menu,
@@ -47,7 +48,19 @@ new Vue({
     },
     menuShowOn:function() {
       this.menuShow = true;
-    }
+    },
+    tohome:function(){
+      this.header = 'Hello'
+    },
+    totag:function(){
+      this.header = 'Tags'
+    },
+    tolog:function(){
+      this.header = 'Login'
+    },
+    toabout:function(){
+      this.header = 'About'
+    },
   },
 }).$mount('#app')
 

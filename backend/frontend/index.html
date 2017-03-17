@@ -7,11 +7,11 @@
   </head>
   <body>
     <div id="app" :style="appSlide">
-    
-        <menu-comp v-if="menuShow" v-on:menuon="push" v-on:menuoff="pull"></menu-comp>
+
+        <menu-comp :header="header" v-show="menuShow" v-on:menuon="push" v-on:menuoff="pull"></menu-comp>
 
         <transition name="content-fade">
-            <router-view v-on:showmenus="menuShowOn" v-on:offmenus="menuShowOff"></router-view>
+            <router-view v-on:showmenus="menuShowOn" v-on:offmenus="menuShowOff" v-on:tag="totag" v-on:home="tohome" v-on:log="tolog" v-on:about="toabout" ></router-view>
         </transition>
     	
     </div>

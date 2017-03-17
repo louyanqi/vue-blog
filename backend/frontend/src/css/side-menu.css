@@ -56,10 +56,10 @@ p{
     position: absolute;
     top: 0;
     z-index: 10;
-    width: 90%;
+    width: 96%;
     margin-top: 10px;
     display: block;
-    left: 5%
+    left: 2%
 }
 
 #top-menu>.top-menu-font{

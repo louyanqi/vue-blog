@@ -1,9 +1,6 @@
 <template>
   
     <div id="main">
-        <div class="header animated fadeIn" style="background-image: url('src/image/head.jpeg');">
-            <h1>About</h1>
-        </div>
 
         <div style="text-align: center;margin-top: 50px;" class="animated fadeIn">
           <p>Leo</p>
@@ -29,10 +26,14 @@ export default {
     }
   },
   created(){
-    this.showmenus();
-     document.title = 'About'
+    document.title = 'About',
+    this.showmenus(),
+    this.about()
   },
   methods:{
+    about:function() {
+      this.$emit('about')
+    },
     showQQSwitch:function() {
       this.showQQ = !this.showQQ
     },

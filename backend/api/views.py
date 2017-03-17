@@ -12,6 +12,16 @@ from .paginator import get_page_list
 from django.core.paginator import Paginator
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
+from .img_url import url_list
+import random
+
+
+@api_view(['GET'])
+def change_img(request):
+    if request.method == 'GET':
+        url = random.choice(url_list)
+        print(url)
+        return Response({'img_url': url}, status=status.HTTP_200_OK)
 
 
 @api_view(['GET', 'POST'])

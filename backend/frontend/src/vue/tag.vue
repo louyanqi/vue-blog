@@ -1,8 +1,5 @@
 <template>
 <div id="main">
-  <div class="header animated fadeIn" style="background-image: url('src/image/head.jpeg');"> 
-      <h1>Tags</h1>
-  </div>
   <div class="pure-g ">
     <div id="main-tag" class="pure-u-1-1">
       <div v-for="tag in tags"  class="tag animated flipInX" :class="{active: tag.tag_active}">
@@ -37,14 +34,21 @@ export default {
     }
   },
   created(){
+    document.title = 'Tag',
     this.getTag(),
-    this.showmenus(),
-    document.title = 'Tag'
+    this.showmenus()
+  },
+  mounted() {
+    this.toTag()
   },
   watch:{
     '$route' : 'getTagArticle'
   },
   methods:{
+    toTag:function(){
+      this.$emit('tag')
+      console.log('tagtagtagtagtagtagtagtagtagtag')
+    },
     showmenus:function() {
       this.$emit('showmenus')
     },
@@ -55,7 +59,6 @@ export default {
           response.data[t].tag_active = false
         }
         self.tags = response.data;
-        self.getTagArticle()
       })
     },
     getTagArticle:function() {
