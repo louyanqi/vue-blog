@@ -1,14 +1,6 @@
 <template>
     <div id="main">
 
-        <div class="pure-menu pure-menu-horizontal">
-            <a href="/#/" class="pure-menu-heading pure-menu-link">Hello</a>
-            <ul class="pure-menu-list">
-                <li class="pure-menu-item"><a href="#/tag" class="pure-menu-link">Tag</a></li>
-                <li @click="manageLogin" class="pure-menu-item"><a href="#" class="pure-menu-link">Manage</a></li>
-            </ul>
-            <a style="float: right;" href="#/about" class="pure-menu-link">About</a>
-        </div>
         <div v-show="show" class="animated fadeIn article-detail" style="margin-top: 70px">
             <h2 class="detail-article-head">{{article.title}}</h2>
             <div class="detail-date">{{article.create_time}}</div>
@@ -134,8 +126,7 @@
 	    }
 	  },
       created() {
-        this.getArticleDetail();
-        this.offmenus();
+        this.getArticleDetail()
       },
       computed:{
         Marked:function() {
@@ -148,7 +139,7 @@
       },
 	  methods:{
         manageLogin:function() {
-          axios.get('http://127.0.0.1:8000/api/request_user/', {
+          axios.get('/api/request_user/', {
             headers:{ 'Authorization': 'Token ' + Cookies.get('token') }
           }).then(function(response){
             window.location.href = "/manage/"
@@ -163,15 +154,11 @@
             self.comment_content = '';
             child_comment.child_reply_input = ! child_comment.child_reply_input
         },
-        offmenus:function() {
-          this.$emit('offmenus')
-          console.log('123fdgdfg')
-        },
         getArticleFun:function(id){
             var self = this;
             var id = this.$route.params.id;
             self.show=false;
-            axios.get('http://127.0.0.1:8000/api/article/'+ id + '/').then(function(response) {self.article = response.data.data;
+            axios.get('/api/article/'+ id + '/').then(function(response) {self.article = response.data.data;
                 document.title = self.article.title
                 self.content = self.article.content;
                 self.show=true;
@@ -205,7 +192,7 @@
         },
         getComment:function(id) {
             var self = this;
-            axios.get('http://127.0.0.1:8000/api/comments/?article_id='+id).then(function(response){
+            axios.get('/api/comments/?article_id='+id).then(function(response){
                 for(var a in response.data){
                     response.data[a].reply_window = false
                 }
@@ -217,7 +204,7 @@
             var id = this.$route.params.id
             console.log(id)
             var self = this;
-            axios.post('http://127.0.0.1:8000/api/comments/', {
+            axios.post('/api/comments/', {
                 article_id: id,
                 comment_user: self.comment_user,
                 comment_content: self.comment_content,
@@ -244,7 +231,7 @@
             var id = this.$route.params.id
             console.log(id)
             var self = this;
-            axios.post('http://127.0.0.1:8000/api/comments/', {
+            axios.post('/api/comments/', {
                 article_id: id,
                 comment_user: self.comment_user,
                 comment_content: self.comment_content,

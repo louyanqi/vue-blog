@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^api/login/$', UserLoginAPIView.as_view()),
     url(r'^api/manage/$', manage),
     url(r'^api/request_user/$', request_user),
-    url(r'^change_img/$', change_img)
+    url(r'^api/change_img/$', change_img)
 ]

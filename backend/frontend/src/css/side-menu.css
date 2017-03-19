@@ -1,4 +1,6 @@
-
+img{
+    max-width: 800px;
+}
 
 
 a{
@@ -53,34 +55,41 @@ p{
 }
 
 #top-menu{
-    position: absolute;
-    top: 0;
-    z-index: 10;
-    width: 96%;
-    margin-top: 10px;
     display: block;
-    left: 2%
+    width: 62%;
+    margin: auto;
+    border-bottom: 3px #a5a5a5 solid;
+    padding-bottom: 30px;
 }
 
-#top-menu>.top-menu-font{
-    color: white;
+#top-menu-font{
+    color: black;
     text-decoration:none;
     font-size: 22px;
-    margin: 0px 10px 0 10px
-}
-#top-menu>.top-menu-font:hover,
-#top-menu>.top-menu-font:focus{
-    color: #6dadff
+    margin: 0px 10px 0 10px;
+    position: relative;
+    padding: 0px 15px 0 15px
 }
 
-
-#left-menu{
-    margin-left: 100px 
+#top-menu-font:after{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    height: 2px;
+    bottom: 0;
+    left: 51%;
+    right: 51%;
+    background: black;
+    transition-duration: 0.1s;
+    transition-property: right, left;
+    transition-timing-function: ease-out;
 }
 
-#right-menu{
-    float: right;
+#top-menu-font:hover::after{
+    left: 0;
+    right: 0
 }
+
 
 .pure-button.click-btn{
     position: absolute;
@@ -111,12 +120,12 @@ p{
     border-bottom: 1px solid #EEEEEE;
     height: auto;
     padding-bottom: 10px;
+    min-width: 580px
 }
 
 .article-content{
-    display: inline-block;
+    padding-right: 50px;
     flex: 1;
-    padding-left: 4px;
 }
 
 .header {
@@ -135,7 +144,7 @@ p{
         margin: 0.4em 0;
         font-size: 4em;
         font-weight: 300;
-        color: white
+        color: black
     }
 
 
@@ -143,8 +152,30 @@ p{
     margin: 50px 0 5px 0;
     color: #333333;
     font-size: 23px;
-    text-decoration: none
+    text-decoration: none;
+    position: relative;
 }
+
+
+.article-head:after{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    height: 2px;
+    bottom: 0;
+    left: 51%;
+    right: 51%;
+    background: #981e1e;
+    transition-duration: 0.1s;
+    transition-property: right, left;
+    transition-timing-function: ease-out;
+}
+
+.article-head:hover::after{
+    left: 0;
+    right: 0
+}
+
 .article-head:hover,
 .article-head:focus {
     color: black;
@@ -153,6 +184,16 @@ p{
 .date{
     font-size: 13px;
     color: #717171;
+}
+
+#read-more{
+    font-size: 18px;
+    color: #981e1e;
+    text-decoration: blink;
+}
+
+#read-more:hover{
+    text-decoration: underline;
 }
 
 #menu {
@@ -229,11 +270,16 @@ p{
   .menu-link {
     display: none
   }
+
 }
 
 @media (max-width: 48em) {
   #top-menu{
     display: none
+  }
+
+  .articles{
+    max-width: 90%;
   }
 }
 
@@ -261,13 +307,11 @@ p{
 
 
 .article-image {
-    width: 200px;
-    height: 140px;
     border-radius: 10px;
     background-size: cover;
     background-position: center;
-    display: inline-block;
-    float: right;
+    max-height: 140px;
+    min-width: 120px
 }
 
 .home-tag{

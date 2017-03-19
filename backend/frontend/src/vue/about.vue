@@ -27,7 +27,6 @@ export default {
   },
   created(){
     document.title = 'About',
-    this.showmenus(),
     this.about()
   },
   methods:{
@@ -36,9 +35,6 @@ export default {
     },
     showQQSwitch:function() {
       this.showQQ = !this.showQQ
-    },
-    showmenus:function() {
-      this.$emit('showmenus')
     }
   }
 

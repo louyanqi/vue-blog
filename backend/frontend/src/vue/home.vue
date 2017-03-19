@@ -5,15 +5,18 @@
 
         <div class="articles">
           <div v-for="article in articles" class="article animated fadeIn pure-g">
-            <div class="article-content pure-u-3-4">
+            <div class="article-content pure-u-1">
               <router-link :to="{ name: 'article', params: {id: article.id}}" class="article-head">{{article.title}}</router-link>
               <div class="date">{{article.create_time}}</div>
               <p style="margin-bottom: 5px">
-                  {{article.abstract}} ... 
+                  {{article.abstract}}...
+                  <router-link :to="{ name: 'article', params: {id: article.id}}" id="read-more">Read more</router-link>
               </p>
               <router-link :to=" '/tag/' + tag.name" class="home-tag" v-for="tag in article.tag">{{tag.name}}</router-link>
             </div>
-            <div v-if="article.image != null" class="article-image pure-u-1-4" :style="{'background-image': 'url(' + article.image +')'}"></div>
+            <!-- :style="{'background-image': 'url(' + article.image +')'}" -->
+            <!-- style="background-image: url('src/image/default.png');" -->
+            <div v-if="article.image != null" class="article-image pure-u-1-5" :style="{'background-image': 'url(' + article.image +')'}"></div>
           </div>
 
           <div class="pagination">
@@ -55,7 +58,6 @@ export default {
   },
   created(){
     this.getArticleList(1),
-    this.showmenus(),
     this.home()
   },
   methods:{
@@ -81,9 +83,6 @@ export default {
     },
     getNextList:function() {
       this.getArticleList(parseInt(this.now_page)+1)
-    },
-    showmenus:function() {
-      this.$emit('showmenus')
     },
   }
 }

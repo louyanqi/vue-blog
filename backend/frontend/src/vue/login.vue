@@ -1,4 +1,4 @@
-<template>
+<template> 
 <div>
 
     <div class="pure-form" id="manage-login-form" style="width: 300px;margin: auto;">
@@ -31,7 +31,7 @@ export default {
       this.$emit('log')
     },
     logIn:function() {
-      axios.post('http://127.0.0.1:8000/api/login/',{
+      axios.post('/api/login/',{
         username: this.username,
         password: this.password
       },).then(function(response) {
@@ -43,7 +43,7 @@ export default {
       })
     },
     requestUser:function() {
-      axios.get('http://127.0.0.1:8000/api/request_user/',{
+      axios.get('/api/request_user/',{
         headers:{ 'Authorization': 'Token ' + Cookies.get('token') }
       }).then(function(response){
         window.location.href = '/manage/'

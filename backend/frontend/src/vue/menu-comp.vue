@@ -15,7 +15,7 @@
                   </li>
 
                   <li class="pure-menu-item">
-                      <a href="#/tag" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-tag"></i>Tag</a>
+                      <a href="#/tag" class="pure-menu-link"><i id="icon-menu" class="iconfont icon-tag"></i>Tags</a>
                   </li>
 
                   <li class="pure-menu-item">
@@ -26,18 +26,28 @@
           </div>
       </transition>
 
-      <div id="top-menu" class="animated fadeIn">
+<!--       <div id="top-menu" class="animated fadeIn">
           <a href="/#/" id="left-menu" class="top-menu-font">Hello</a>
-          <a href="#/tag" class="top-menu-font">Tag</a>
+          <a href="#/tag" class="top-menu-font">Tags</a>
           <a @click="manageLogin" class="top-menu-font">Manage</a>
           <a href="#/about" id="right-menu" class="top-menu-font">About</a>
-      </div>
+      </div> -->
 
-      <div id="background-image" class="header animated fadeIn " :style="{'background-image': 'url(' + img_url +')'}">
+      <div class="pure-menu pure-menu-horizontal" style="text-align: center;padding: 30px">
+        <ul class="pure-menu-list" id="top-menu">
+            <li class="pure-menu-item"><a href="/#/" id="top-menu-font">Hello</a></li>
+            <li class="pure-menu-item"><a href="#/tag" id="top-menu-font">Tags</a></li>
+            <li @click="manageLogin" class="pure-menu-item"><a id="top-menu-font">Manage</a></li>
+            <li class="pure-menu-item"><a href="#/about" id="top-menu-font">About</a></li>
+        </ul>
+
+    </div>
+
+      <!-- <div id="background-image" class="header animated fadeIn" :style="{'background-image': 'url(' + img_url +')'}">
         <h1 class="">{{header}}</h1>
         <div v-show="loadShow" style="margin-top: -50px" class="ui active centered inline loader"></div>
         <button @click="changeImg" title="点击切换图片" class="pure-button click-btn">click!</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -47,12 +57,9 @@ export default {
   data () {
     return {
       show: false,
-      img_url: '',
+      img_url: '/static/image/head1.jpeg/',
       loadShow:true
     }
-  },
-  mounted(){
-    this.changeImg()
   },
   props:['header'],
   methods:{
@@ -64,15 +71,15 @@ export default {
         this.show = false;
         this.$emit('menuoff')
     },
-    changeImg:function() {
-      var self = this;
-      axios.get('http://127.0.0.1:8000/change_img/').then(function(response){
-        self.img_url = response.data.img_url;
-        self.loadShow = false
-      })
-    },
+    // changeImg:function() {
+    //   var self = this;
+    //   axios.get('127.0.0.1:8000/api/change_img/').then(function(response){
+    //     self.img_url = response.data.img_url;
+    //     self.loadShow = false
+    //   })
+    // },
     manageLogin:function() {
-      axios.get('http://127.0.0.1:8000/api/request_user/', {
+      axios.get('127.0.0.1:8000/api/request_user/', {
         headers:{ 'Authorization': 'Token ' + Cookies.get('token') }
       }).then(function(response){
         window.location.href = "/manage/"

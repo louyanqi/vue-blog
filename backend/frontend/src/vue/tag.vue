@@ -1,4 +1,4 @@
-<template>
+<template> 
 <div id="main">
   <div class="pure-g ">
     <div id="main-tag" class="pure-u-1-1">
@@ -35,8 +35,7 @@ export default {
   },
   created(){
     document.title = 'Tag',
-    this.getTag(),
-    this.showmenus()
+    this.getTag()
   },
   mounted() {
     this.toTag()
@@ -47,14 +46,10 @@ export default {
   methods:{
     toTag:function(){
       this.$emit('tag')
-      console.log('tagtagtagtagtagtagtagtagtagtag')
-    },
-    showmenus:function() {
-      this.$emit('showmenus')
     },
     getTag:function() {
       var self = this;
-      axios.get('http://127.0.0.1:8000/api/tags/').then(function(response) {
+      axios.get('/api/tags/').then(function(response) {
         for (var t in response.data){
           response.data[t].tag_active = false
         }
@@ -67,7 +62,7 @@ export default {
         self.tags[t].tag_active = false
       };
       var name = this.$route.params.name;
-      axios.get('http://127.0.0.1:8000/api/articles_admin/?tag='+name).then(function(response) {
+      axios.get('/api/articles_admin/?tag='+name).then(function(response) {
         self.articles = response.data.article_data; 
         var filtered = self.tags.filter(function nowTag(tag){
           return tag.name == name

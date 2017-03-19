@@ -19,13 +19,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from blog.views import test, manage
 from django.views.generic import TemplateView
+from django.conf.urls import handler404, handler500
 
+
+handler404 = 'blog.views.page_not_found'
+handler500 = 'blog.views.page_error'
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('api.urls')),
     url(r'ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^$', TemplateView.as_view(template_name='index.html')),
+    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
     url(r'^test/$', test, name='test'),
     url(r'^manage/$', manage)
 ]
