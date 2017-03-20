@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1489802401151'); /* IE9*/
-  src: url('iconfont.eot?t=1489802401151#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1489802401151') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1489802401151') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1489802401151#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1489981309009'); /* IE9*/
+  src: url('iconfont.eot?t=1489981309009#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1489981309009') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1489981309009') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1489981309009#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -33,7 +33,7 @@
   font-size: 32px;
   color: #c5c5c5
 }
- 
+
 .icon-weibo:before { content: "\f0003"; }
 
 .icon-icontitlehuishouye:before { content: "\e635"; }
@@ -59,4 +59,8 @@
 .icon-write:before { content: "\e618"; }
 
 .icon-left:before { content: "\e69a"; }
+
+.icon-sousuo_sousuo:before { content: "\e67a"; }
+
+.icon-TimeLine-copy:before { content: "\e608"; }
 

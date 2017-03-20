@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
-from .serializers import ArticleSerializer, CommentSerializer, TagSerializer
+from .serializers import ArticleSerializer, CommentSerializer, TagSerializer, ArchiveArticleSerializer
 from rest_framework.decorators import api_view, authentication_classes
 from blog.models import Article, Comment, Tag
 from django.shortcuts import get_object_or_404
@@ -14,6 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from .img_url import url_list
 import random
+import re
 
 
 @api_view(['GET'])
@@ -85,6 +86,14 @@ def article_admin(request):
         return Response(status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def archive_article(request):
+    if request.method == 'GET':
+        archive_article_list = Article.objects.all().order_by('-id')
+        serializer = ArchiveArticleSerializer(archive_article_list, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
 def article_detail(request, article_id):
     article_info = get_object_or_404(Article, id=article_id)
@@ -132,10 +141,13 @@ def article_detail_admin(request, article_id):
         id = data.get('id')
         title = data.get('title')
         content = data.get('content')
+        # 匹配内容中markdown的图片地址
+        img_url = re.search('!\[]\((.*?)\)', content).group(1)
         article_info = Article.objects.get(id=id)
         article_info.title = title
         article_info.content = content
         article_info.abstract = content[:200]
+        article_info.url_img = img_url
         article_info.save()
         return Response(status=status.HTTP_200_OK)
     if request.method == "DELETE":
@@ -147,7 +159,6 @@ def article_detail_admin(request, article_id):
 @api_view(['GET', 'POST'])
 def comment(request):
     if request.method == 'GET':
-        print('#' * 65)
         article_id = request.GET.get('article_id')
         comment_list = Comment.objects.all().filter(belong_to_id=article_id, parent=None).order_by('-id')
         serializer = CommentSerializer(comment_list, many=True)
@@ -159,8 +170,6 @@ def comment(request):
         comment_content = data.get('comment_content')
         user_email = data.get('user_email')
         send_email = data.get('send_email')
-        print(data.get('parent'))
-        print('#'*65)
         if data.get('parent'):
             parent_id = data.get('parent')
             reply_id = data.get('reply_to')
@@ -168,16 +177,12 @@ def comment(request):
                                    content=comment_content, comment_user=comment_user, send_email=send_email,
                                    user_email=user_email)
             parent_info = Comment.objects.get(id=parent_id)
-            print(parent_info.send_email)
-            print('&' * 65)
+
             if parent_info.send_email is True:
                 subject = comment_user + '回复你：'
                 message = comment_content
                 send_mail(subject=subject, message=message, from_email='778617402@qq.com',
                           recipient_list=[parent_info.user_email])
-                print(parent_info.user_email)
-                print('&'*65)
-
         else:
             comment_info = Comment(belong_to_id=article_id, content=comment_content, comment_user=comment_user,
                                    send_email=send_email, user_email=user_email)

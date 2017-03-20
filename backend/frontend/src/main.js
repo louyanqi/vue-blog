@@ -6,6 +6,7 @@ import Tag from './vue/tag.vue'
 import About from './vue/about.vue'
 import Login from './vue/login.vue'
 import Menu from './vue/menu-comp.vue'
+import Archive from './vue/archive.vue'
 import axios from 'axios'
 import './css/pure-min.css'
 import './js/x-return-top.min.js'
@@ -21,6 +22,7 @@ const router = new VueRouter({
     { path: '/tag/:name', component: Tag},
     { path: '/about', component: About},
     { path: '/login', component: Login},
+    { path: '/archives', component: Archive},
 	]
 })
 

@@ -1,0 +1,23 @@
+.archive{
+	width: 60%;
+	margin: 0 auto
+}
+
+
+.archive-content{
+	border-left: 3px solid #adadad;
+    padding-left: 30px;
+    margin-top: 30px;
+}
+
+.archive-date{
+	font-size: 16px;
+    color: #868383;
+    margin-right: 15px;
+}
+
+.archive-article-title{
+	font-size: 20px;
+    color: #a00000;
+    text-decoration: none;
+}

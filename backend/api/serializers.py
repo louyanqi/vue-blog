@@ -27,12 +27,20 @@ class ArticleIdSerializer(serializers.ModelSerializer):
         fields = ['id']
 
 
+class ArchiveArticleSerializer(serializers.ModelSerializer):
+    create_time = DateTimeFieldWihTZ(format='%Y-%m-%d')
+
+    class Meta:
+        model = Article
+        fields = ['id', 'title', 'create_time']
+
+
 class ReplyCommentSerializer(serializers.ModelSerializer):
     create_time = DateTimeFieldWihTZ(format='%Y.%m.%d %H:%M')
 
     class Meta:
         model = Comment
-        fields = ['id', 'content', 'comment_user', 'create_time', 'parent', 'child_reply_input',]
+        fields = ['id', 'content', 'comment_user', 'create_time', 'parent', 'child_reply_input']
         depth = 1
 
 

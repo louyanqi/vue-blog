@@ -37,6 +37,7 @@
         <ul class="pure-menu-list" id="top-menu">
             <li class="pure-menu-item"><a href="/#/" id="top-menu-font">Hello</a></li>
             <li class="pure-menu-item"><a href="#/tag" id="top-menu-font">Tags</a></li>
+            <li class="pure-menu-item"><a href="#/archives" id="top-menu-font">Archives</a></li>
             <li @click="manageLogin" class="pure-menu-item"><a id="top-menu-font">Manage</a></li>
             <li class="pure-menu-item"><a href="#/about" id="top-menu-font">About</a></li>
         </ul>
@@ -79,7 +80,7 @@ export default {
     //   })
     // },
     manageLogin:function() {
-      axios.get('127.0.0.1:8000/api/request_user/', {
+      axios.get('/api/request_user/', {
         headers:{ 'Authorization': 'Token ' + Cookies.get('token') }
       }).then(function(response){
         window.location.href = "/manage/"

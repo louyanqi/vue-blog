@@ -15,7 +15,7 @@
               {{article.abstract}} ... 
           </p>
         </div>
-        <div v-if="article.image != null" class="article-image pure-u-1-4" :style="{'background-image': 'url(' + article.image +')'}"></div>
+        <div v-if="article.url_img != null" class="article-image pure-u-1-5" :style="{'background-image': 'url(' + article.url_img +')'}"></div>
       </div>
     </div>
   </div>
@@ -57,6 +57,7 @@ export default {
       })
     },
     getTagArticle:function() {
+      console.log('sdkfnksdnfklsdbjlbsjldbflisdbfbsdjfvbsdjnbfjksdbfsl')
       var self = this;
       for (var t in self.tags){
         self.tags[t].tag_active = false

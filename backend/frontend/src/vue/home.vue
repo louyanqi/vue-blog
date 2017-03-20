@@ -16,7 +16,7 @@
             </div>
             <!-- :style="{'background-image': 'url(' + article.image +')'}" -->
             <!-- style="background-image: url('src/image/default.png');" -->
-            <div v-if="article.image != null" class="article-image pure-u-1-5" :style="{'background-image': 'url(' + article.image +')'}"></div>
+            <div v-if="article.url_img != null" class="article-image pure-u-1-5" :style="{'background-image': 'url(' + article.url_img +')'}"></div>
           </div>
 
           <div class="pagination">
@@ -66,7 +66,7 @@ export default {
     },
     getArticleList:function(page) {
         var self = this;
-        axios.get('http://127.0.0.1:8000/api/articles/?page='+ page).then(function(response) {
+        axios.get('/api/articles/?page='+ page).then(function(response) {
             self.articles = response.data.data;
             self.page_list = response.data.page_list;
             self.now_page = response.data.now_page;

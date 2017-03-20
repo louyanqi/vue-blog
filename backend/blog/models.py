@@ -19,6 +19,7 @@ class Article(models.Model):
     content = RichTextUploadingField(null=True, blank=True)
     abstract = models.TextField(max_length=500, null=True, blank=True)
     image = models.ImageField(upload_to='upload', null=True, blank=True)
+    url_img = models.URLField(null=True, blank=True)
     create_time = models.DateTimeField(default=timezone.now)
     update_time = models.DateTimeField(default=timezone.now)
     tag = models.ManyToManyField(to=Tag, related_name='article', blank=True)

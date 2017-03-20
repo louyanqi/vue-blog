@@ -1,7 +1,7 @@
 <template>
     <div id="main">
 
-        <div v-show="show" class="animated fadeIn article-detail" style="margin-top: 70px">
+        <div v-show="show" class="animated fadeIn article-detail">
             <h2 class="detail-article-head">{{article.title}}</h2>
             <div class="detail-date">{{article.create_time}}</div>
             <div v-html="Marked">

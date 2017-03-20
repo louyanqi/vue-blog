@@ -1,21 +1,23 @@
 
 .article-detail{
-	margin: 100px auto;
+	margin: 0px auto;
     max-width: 60%;
 }
 
 
 .detail-article-head {
-	margin: 50px 0 5px 0;
     font-weight: 300;
     color: #000;
-    text-align: center
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 15px;
 }
 
 .detail-date{
-	font-size: 13px;
+	font-size: 15px;
     color: #717171;
-    text-align: center
+    text-align: center;
+    margin-bottom: 15px;
 }
 
 .avatar{
@@ -96,4 +98,6 @@
 
 .next-article-btn{
 	cursor: pointer;
+	font-size: 20px;
+	color: #333333;
 }
