@@ -26,13 +26,6 @@
           </div>
       </transition>
 
-<!--       <div id="top-menu" class="animated fadeIn">
-          <a href="/#/" id="left-menu" class="top-menu-font">Hello</a>
-          <a href="#/tag" class="top-menu-font">Tags</a>
-          <a @click="manageLogin" class="top-menu-font">Manage</a>
-          <a href="#/about" id="right-menu" class="top-menu-font">About</a>
-      </div> -->
-
       <div class="pure-menu pure-menu-horizontal" style="text-align: center;padding: 30px">
         <ul class="pure-menu-list" id="top-menu">
             <li class="pure-menu-item"><a href="/#/" id="top-menu-font">Hello</a></li>

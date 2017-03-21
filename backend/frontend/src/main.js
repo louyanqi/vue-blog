@@ -16,7 +16,8 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
 	routes: [
-		{ path: '/', component: Home},
+    { path: '/', component: Home},
+		{ path: '/page/:page', component: Home},
 		{ path: '/article/:id', name: 'article', component: Detail},
     { path: '/tag', component: Tag},
     { path: '/tag/:name', component: Tag},

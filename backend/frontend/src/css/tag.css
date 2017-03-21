@@ -28,7 +28,8 @@
 }
 
 .tag-name{
-
+	width: 100px;
+    text-align: center;
 	position: absolute;
 	transform: translate(-50%, -50%);
 	position: absolute;

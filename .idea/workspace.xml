@@ -2,45 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e60d6cd-620c-45dd-967c-63ad370d75d5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/1.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon1/iconfont.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon1/iconfont.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon1/iconfont.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon1/iconfont.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon1/iconfont.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon1/iconfont1.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/demo.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/demo_fontclass.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/demo_symbol.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/demo_unicode.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/iconfont.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/iconfont.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/iconfont.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/iconfont.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/iconfont.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/backend/static/css/icon2/iconfont.woff" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/db.sqlite3" afterPath="$PROJECT_DIR$/backend/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/iconfont.eot" afterPath="$PROJECT_DIR$/backend/static/css/icon/iconfont.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/iconfont.ttf" afterPath="$PROJECT_DIR$/backend/static/css/icon/iconfont.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/iconfont.woff" afterPath="$PROJECT_DIR$/backend/static/css/icon/iconfont.woff" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/api/serializers.py" afterPath="$PROJECT_DIR$/backend/api/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/api/urls.py" afterPath="$PROJECT_DIR$/backend/api/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/api/views.py" afterPath="$PROJECT_DIR$/backend/api/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/blog/models.py" afterPath="$PROJECT_DIR$/backend/blog/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/dist/build.js" afterPath="$PROJECT_DIR$/backend/frontend/dist/build.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/dist/build.js.map" afterPath="$PROJECT_DIR$/backend/frontend/dist/build.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/index.html" afterPath="$PROJECT_DIR$/backend/frontend/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/src/css/detail.css" afterPath="$PROJECT_DIR$/backend/frontend/src/css/detail.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/src/css/tag.css" afterPath="$PROJECT_DIR$/backend/frontend/src/css/tag.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/src/main.js" afterPath="$PROJECT_DIR$/backend/frontend/src/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/src/vue/detail.vue" afterPath="$PROJECT_DIR$/backend/frontend/src/vue/detail.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/src/vue/home.vue" afterPath="$PROJECT_DIR$/backend/frontend/src/vue/home.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/frontend/src/vue/menu-comp.vue" afterPath="$PROJECT_DIR$/backend/frontend/src/vue/menu-comp.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/demo_fontclass.html" afterPath="$PROJECT_DIR$/backend/static/css/icon/demo_fontclass.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/demo_symbol.html" afterPath="$PROJECT_DIR$/backend/static/css/icon/demo_symbol.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/demo_unicode.html" afterPath="$PROJECT_DIR$/backend/static/css/icon/demo_unicode.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/iconfont.css" afterPath="$PROJECT_DIR$/backend/static/css/icon/iconfont.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/iconfont.js" afterPath="$PROJECT_DIR$/backend/static/css/icon/iconfont.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/icon/iconfont.svg" afterPath="$PROJECT_DIR$/backend/static/css/icon/iconfont.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/css/manage.css" afterPath="$PROJECT_DIR$/backend/static/css/manage.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/js/build.js" afterPath="$PROJECT_DIR$/backend/static/js/build.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/static/js/build.js.map" afterPath="$PROJECT_DIR$/backend/static/js/build.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/templates/index.html" afterPath="$PROJECT_DIR$/backend/templates/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/backend/templates/manage.html" afterPath="$PROJECT_DIR$/backend/templates/manage.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -62,7 +40,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/backend/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
+            <state relative-caret-position="198">
               <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
               <folding />
             </state>
@@ -72,7 +50,7 @@
       <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/api/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
+            <state relative-caret-position="572">
               <caret line="30" column="48" lean-forward="false" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
               <folding />
             </state>
@@ -82,7 +60,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/blog/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-59">
+            <state relative-caret-position="374">
               <caret line="21" column="51" lean-forward="false" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
               <folding />
             </state>
@@ -92,8 +70,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/backend/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="144" column="37" lean-forward="false" selection-start-line="144" selection-start-column="37" selection-end-line="144" selection-end-column="37" />
+            <state relative-caret-position="22">
+              <caret line="130" column="35" lean-forward="false" selection-start-line="130" selection-start-column="35" selection-end-line="130" selection-end-column="35" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -104,7 +82,7 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/api/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
+            <state relative-caret-position="330">
               <caret line="18" column="42" lean-forward="false" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
@@ -116,8 +94,8 @@
       <file leaf-file-name="manage.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/backend/templates/manage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1738">
-              <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+            <state relative-caret-position="1826">
+              <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -181,12 +159,12 @@
         <option value="$PROJECT_DIR$/backend/backend/urls.py" />
         <option value="$PROJECT_DIR$/backend/templates/404.html" />
         <option value="$PROJECT_DIR$/backend/backend/settings.py" />
-        <option value="$PROJECT_DIR$/backend/templates/manage.html" />
         <option value="$PROJECT_DIR$/backend/api/img_url.py" />
         <option value="$PROJECT_DIR$/backend/api/urls.py" />
         <option value="$PROJECT_DIR$/backend/api/serializers.py" />
         <option value="$PROJECT_DIR$/1.py" />
         <option value="$PROJECT_DIR$/backend/blog/models.py" />
+        <option value="$PROJECT_DIR$/backend/templates/manage.html" />
         <option value="$PROJECT_DIR$/backend/api/views.py" />
       </list>
     </option>
@@ -224,7 +202,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -289,6 +266,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -578,26 +556,26 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22012103" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23298033" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27704918" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37704918" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24754098" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27704918" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32733223" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -850,14 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/templates/manage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1738">
-          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/backend/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="550">
@@ -868,17 +838,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backend/api/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="30" column="48" lean-forward="false" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/backend/backend/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
+        <state relative-caret-position="198">
           <caret line="9" column="52" lean-forward="false" selection-start-line="9" selection-start-column="52" selection-end-line="9" selection-end-column="52" />
           <folding />
         </state>
@@ -886,7 +848,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/api/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
+        <state relative-caret-position="330">
           <caret line="18" column="42" lean-forward="false" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
@@ -896,7 +858,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/blog/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-59">
+        <state relative-caret-position="374">
           <caret line="21" column="51" lean-forward="false" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
           <folding />
         </state>
@@ -906,14 +868,29 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="6" column="27" lean-forward="false" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/templates/manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1826">
+          <caret line="83" column="0" lean-forward="false" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/backend/api/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="30" column="48" lean-forward="false" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/backend/api/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="144" column="37" lean-forward="false" selection-start-line="144" selection-start-column="37" selection-end-line="144" selection-end-column="37" />
+        <state relative-caret-position="22">
+          <caret line="130" column="35" lean-forward="false" selection-start-line="130" selection-start-column="35" selection-end-line="130" selection-end-column="35" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
           </folding>

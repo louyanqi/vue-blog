@@ -13,8 +13,24 @@
                 <span v-if="next_title != '没有了' " class="next-article-btn" @click="getNext" style="float: right">{{next_title}} > </span>
             </div>
 
+            <!-- JiaThis Button BEGIN -->
+            <div style="padding-top: 35px" class="jiathis_style"><span class="jiathis_txt">分享到：</span>
+                <a class="jiathis_button_cqq"></a>
+                <a class="jiathis_button_weixin"></a>
+                <a class="jiathis_button_tsina"></a>
+                <a class="jiathis_button_douban"></a>
+                <a class="jiathis_button_qq"></a>
+                <a class="jiathis_button_copy"></a>
+                <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+                <a class="jiathis_counter_style"></a>
+            </div>
+            
+
+            <!-- JiaThis Button END -->
+
+
             <!-- 评论 -->
-            <button v-show="!addComment" @click="showComment" class="pure-form pure-button animated fadeIn">添加评论</button>
+            <button style="display: block;" v-show="!addComment" @click="showComment" class="pure-form pure-button animated fadeIn">添加评论</button>
 
             <div v-show="addComment" class="pure-form animated fadeIn">
                 <input v-model="comment_user" type="text" class="pure-input-3-4" placeholder="你的名字...">
@@ -106,6 +122,11 @@
 </template>
 
 <script>
+    var jiathis_config={
+        summary:"",
+        shortUrl:false,
+        hideMore:false
+    }
     import axios from 'axios'
 	export default {
 	  data () {

@@ -26,7 +26,7 @@
                   <li v-else class="pure-menu-item"><a class="pure-menu-link">上一页</a></li>
 
                   <li v-if="now_page==page" v-for="page in page_list" class="pure-menu-item choze"><a class="pure-menu-link">{{page}}</a></li>
-                  <li @click="getArticleList(page)" v-else class="pure-menu-item"><a class="pure-menu-link">{{page}}</a></li>
+                  <li v-else class="pure-menu-item"><a :href="'/#/page/' + page + '/'" class="pure-menu-link">{{page}}</a></li>
 
                   <li v-if="next_list" class="pure-menu-item"><a @click="getNextList" class="pure-menu-link">下一页</a></li>
                   <li v-else class="pure-menu-item"><a class="pure-menu-link">下一页</a></li>
@@ -57,15 +57,24 @@ export default {
     document.title = "Hello"
   },
   created(){
-    this.getArticleList(1),
+    this.getArticleList(),
     this.home()
+  },
+  watch: {
+    '$route': 'getArticleList'
   },
   methods:{
     home:function() {
       this.$emit('home')
     },
-    getArticleList:function(page) {
+    getArticleList:function() {
         var self = this;
+        var page = this.$route.params.page;
+        if (page == undefined){
+          page = 1
+        }
+        console.log(page)
+
         axios.get('/api/articles/?page='+ page).then(function(response) {
             self.articles = response.data.data;
             self.page_list = response.data.page_list;
@@ -79,10 +88,14 @@ export default {
         })
     },
     getPreList:function() {
-      this.getArticleList(parseInt(this.now_page)-1)
+      var self = this;
+      console.log(self.now_page)
+      window.location.href = '/#/page/' + (parseInt(self.now_page)-1) + '/'
     },
     getNextList:function() {
-      this.getArticleList(parseInt(this.now_page)+1)
+      var self = this;
+      console.log(self.now_page)
+      window.location.href = '/#/page/' + (parseInt(self.now_page)+1) + '/'
     },
   }
 }
