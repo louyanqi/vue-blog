@@ -10,6 +10,14 @@ import Archive from './vue/archive.vue'
 import axios from 'axios'
 import './css/pure-min.css'
 import './js/x-return-top.min.js'
+import './css/atom-one-dark.css'
+
+Vue.directive('highlight',function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block)=>{
+    hljs.highlightBlock(block)
+  })
+})
 
 Vue.use(VueRouter)
 
@@ -28,7 +36,7 @@ const router = new VueRouter({
 })
 
 new Vue({
-  
+  el: '#app',
   router: router,
   data:{
     appSlide: '',
@@ -64,5 +72,8 @@ new Vue({
       this.header = 'About'
     },
   },
-}).$mount('#app')
+})
+
+
+
 

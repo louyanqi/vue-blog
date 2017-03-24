@@ -11,10 +11,8 @@
   "dependencies": {
     "axios": "^0.15.3",
     "marked": "^0.3.6",
-    "semantic-ui-loader": "^2.2.9",
     "vue": "^2.1.0",
-    "vue-router": "^2.2.1",
-    "vue-scroll": "^2.0.1"
+    "vue-router": "^2.2.1"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

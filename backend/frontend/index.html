@@ -9,15 +9,13 @@
     <div id="app" :style="appSlide">
 
         <menu-comp :header="header" v-on:menuon="push" v-on:menuoff="pull"></menu-comp>
-
         <transition name="content-fade">
             <router-view v-on:tag="totag" v-on:home="tohome" v-on:log="tolog" v-on:about="toabout" ></router-view>
         </transition>
     	
     </div>
-
+    <script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/highlight.min.js"></script>
     <script src="/dist/build.js"></script>
     <script src="/src/js/js.cookie.js"></script>
-    
   </body>
 </html>

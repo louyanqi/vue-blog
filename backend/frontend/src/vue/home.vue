@@ -12,11 +12,11 @@
                   {{article.abstract}}...
                   <router-link :to="{ name: 'article', params: {id: article.id}}" id="read-more">Read more</router-link>
               </p>
-              <router-link :to=" '/tag/' + tag.name" class="home-tag" v-for="tag in article.tag">{{tag.name}}</router-link>
+              <router-link :to=" '/tag/' + tag.id" class="home-tag" v-for="tag in article.tag">{{tag.name}}</router-link>
             </div>
             <!-- :style="{'background-image': 'url(' + article.image +')'}" -->
             <!-- style="background-image: url('src/image/default.png');" -->
-            <div v-if="article.url_img != null" class="article-image pure-u-1-5" :style="{'background-image': 'url(' + article.url_img +')'}"></div>
+            <div v-if="article.url_img" class="article-image pure-u-1-5" :style="{'background-image': 'url(' + article.url_img +')'}"></div>
           </div>
 
           <div class="pagination">
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+
 import axios from 'axios'
 export default {
   data () {
@@ -64,6 +65,10 @@ export default {
     '$route': 'getArticleList'
   },
   methods:{
+    Marked:function(content) {
+      var marked = require('marked');
+      return marked(content)
+    },
     home:function() {
       this.$emit('home')
     },
@@ -73,7 +78,6 @@ export default {
         if (page == undefined){
           page = 1
         }
-        console.log(page)
 
         axios.get('/api/articles/?page='+ page).then(function(response) {
             self.articles = response.data.data;
@@ -81,7 +85,6 @@ export default {
             self.now_page = response.data.now_page;
             self.pre_list = response.data.pre_list;
             self.next_list = response.data.next_list;
-            console.log(self.articles)
         })
         .catch(function(error){
 
@@ -89,12 +92,10 @@ export default {
     },
     getPreList:function() {
       var self = this;
-      console.log(self.now_page)
       window.location.href = '/#/page/' + (parseInt(self.now_page)-1) + '/'
     },
     getNextList:function() {
       var self = this;
-      console.log(self.now_page)
       window.location.href = '/#/page/' + (parseInt(self.now_page)+1) + '/'
     },
   }

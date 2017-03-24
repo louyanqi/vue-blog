@@ -21,7 +21,6 @@ import re
 def change_img(request):
     if request.method == 'GET':
         url = random.choice(url_list)
-        print(url)
         return Response({'img_url': url}, status=status.HTTP_200_OK)
 
 
@@ -62,10 +61,10 @@ def article(request):
 @api_view(['GET', 'POST'])
 def article_admin(request):
     if request.method == 'GET':
-        tag_name = request.GET.get('tag')
-        if tag_name:
-            article_list = Article.objects.all().filter(tag__name=tag_name).order_by('-id')
-            tag_info = Tag.objects.get(name=tag_name)
+        tag_id = request.GET.get('tag')
+        if tag_id:
+            article_list = Article.objects.all().filter(tag__id=int(tag_id)).order_by('-id')
+            tag_info = Tag.objects.get(id=int(tag_id))
             serializer = ArticleSerializer(article_list, many=True)
             tag_serializer = TagSerializer(tag_info)
             data = {
@@ -148,7 +147,11 @@ def article_detail_admin(request, article_id):
         title = data.get('title')
         content = data.get('content')
         # 匹配内容中markdown的图片地址
-        img_url = re.search('!\[]\((.*?)\)', content).group(1)
+        img_url = re.search('!\[]\((.*?)\)', content)
+        if not img_url:
+            img_url = ''
+        else:
+            img_url = img_url.group(1)
         article_info = Article.objects.get(id=id)
         article_info.title = title
         article_info.content = content
@@ -176,12 +179,16 @@ def comment(request):
         comment_content = data.get('comment_content')
         user_email = data.get('user_email')
         send_email = data.get('send_email')
+        if 'HTTP_X_FORWARDED_FOR' in request.META:
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
         if data.get('parent'):
             parent_id = data.get('parent')
             reply_id = data.get('reply_to')
             comment_info = Comment(belong_to_id=article_id, reply_id=reply_id, parent_id=parent_id,
                                    content=comment_content, comment_user=comment_user, send_email=send_email,
-                                   user_email=user_email)
+                                   user_email=user_email, user_ip=ip)
             parent_info = Comment.objects.get(id=parent_id)
 
             if parent_info.send_email is True:
@@ -191,7 +198,7 @@ def comment(request):
                           recipient_list=[parent_info.user_email])
         else:
             comment_info = Comment(belong_to_id=article_id, content=comment_content, comment_user=comment_user,
-                                   send_email=send_email, user_email=user_email)
+                                   send_email=send_email, user_email=user_email, user_ip=ip)
         comment_info.save()
         article_info = Article.objects.get(id=article_id)
         article_info.comment_num = Comment.objects.all().count()

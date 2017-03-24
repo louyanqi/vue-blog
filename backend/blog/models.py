@@ -33,7 +33,7 @@ class Article(models.Model):
 @receiver(post_save, sender=Article)
 def create_article_abstract(sender, instance, created, **kwargs):
     if created:
-        instance.abstract = instance.content[:200]
+        instance.abstract = instance.content[:150]
         instance.save()
 
 
@@ -43,6 +43,7 @@ class Comment(models.Model):
     reply = models.ForeignKey(to='self', related_name='who_reply', null=True, blank=True)
     content = models.TextField()
     comment_user = models.CharField(default='匿名', max_length=30)
+    user_ip = models.CharField(null=True, blank=True, max_length=100)
     send_email = models.BooleanField(default=False)
     user_email = models.EmailField(max_length=30, null=True, blank=True)
     create_time = models.DateTimeField(default=timezone.now)
