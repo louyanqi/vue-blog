@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from ckeditor_uploader.fields import RichTextUploadingField
+import re
 
 
 class Tag(models.Model):
@@ -24,6 +25,7 @@ class Article(models.Model):
     update_time = models.DateTimeField(default=timezone.now)
     tag = models.ManyToManyField(to=Tag, related_name='article', blank=True)
     comment_num = models.IntegerField(default=0)
+    view_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -33,7 +35,14 @@ class Article(models.Model):
 @receiver(post_save, sender=Article)
 def create_article_abstract(sender, instance, created, **kwargs):
     if created:
-        instance.abstract = instance.content[:150]
+        content = instance.content
+        content_text1 = content.replace('<p>', '').replace('</p>', '').replace('&#39;', '')
+        # 去掉图片链接
+        content_text2 = re.sub('!\[\]\((.*?)\)', '', content_text1)
+        # 去掉markdown标签
+        pattern = '[\\\`\*\_\[\]\#\+\-\!\>]'
+        content_text3 = re.sub(pattern, '', content_text2)
+        instance.abstract = content_text3[:150]
         instance.save()
 
 
@@ -51,6 +60,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment_user
+
+
+class ViewInfo(models.Model):
+    view_ip = models.CharField(default=0, max_length=100)
+    view_time = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.all_view_num
 
 # from faker import Factory
 # fake = Factory.create()

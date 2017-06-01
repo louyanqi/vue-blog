@@ -1,9 +1,10 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
-from .serializers import ArticleSerializer, CommentSerializer, TagSerializer, ArchiveArticleSerializer
+from .serializers import ArticleSerializer, CommentSerializer, TagSerializer,\
+    ArchiveArticleSerializer, ArticleDetailSerializer
 from rest_framework.decorators import api_view, authentication_classes
-from blog.models import Article, Comment, Tag
+from blog.models import Article, Comment, Tag, ViewInfo
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from .serializers import UserLoginSerializer
@@ -24,6 +25,7 @@ def change_img(request):
         return Response({'img_url': url}, status=status.HTTP_200_OK)
 
 
+# 首页文章列表
 @api_view(['GET', 'POST'])
 def article(request):
     if request.method == 'GET':
@@ -48,6 +50,15 @@ def article(request):
 
         article_list = Article.objects.all().order_by('-id')[start: start+7]
         serializer = ArticleSerializer(article_list, many=True)
+
+        # 得到访问首页用户的ip
+        if 'HTTP_X_FORWARDED_FOR' in request.META:
+            ip = request.META['HTTP_X_FORWARDED_FOR']
+        else:
+            ip = request.META['REMOTE_ADDR']
+        view_info = ViewInfo(view_ip=ip)
+        view_info.save()
+
         data = {
             'data': serializer.data,
             'page_list': page_list,
@@ -62,7 +73,8 @@ def article(request):
 def article_admin(request):
     if request.method == 'GET':
         tag_id = request.GET.get('tag')
-        if tag_id:
+
+        if tag_id and tag_id != 'undefined':
             article_list = Article.objects.all().filter(tag__id=int(tag_id)).order_by('-id')
             tag_info = Tag.objects.get(id=int(tag_id))
             serializer = ArticleSerializer(article_list, many=True)
@@ -80,7 +92,13 @@ def article_admin(request):
         data = request.data
         title = data.get('title')
         content = data.get('content')
-        art = Article(title=title, content=content)
+        # 取出内容中markdown的图片地址作为首页图片
+        img_url = re.search('!\[]\((.*?)\)', content)
+        if not img_url:
+            img_url = ''
+        else:
+            img_url = img_url.group(1)
+        art = Article(title=title, content=content, url_img=img_url)
         art.save()
         return Response(status=status.HTTP_200_OK)
 
@@ -105,7 +123,7 @@ def article_detail(request, article_id):
             pre_article = article_info.get_next_by_create_time()
         except Article.DoesNotExist:
             pre_article = Article(id=article_id, title="没有了")
-        serializer = ArticleSerializer(article_info)
+        serializer = ArticleDetailSerializer(article_info)
 
         data = {
             'data': serializer.data,
@@ -146,7 +164,7 @@ def article_detail_admin(request, article_id):
         id = data.get('id')
         title = data.get('title')
         content = data.get('content')
-        # 匹配内容中markdown的图片地址
+        # 取出内容中markdown的图片地址作为首页图片
         img_url = re.search('!\[]\((.*?)\)', content)
         if not img_url:
             img_url = ''
@@ -155,7 +173,13 @@ def article_detail_admin(request, article_id):
         article_info = Article.objects.get(id=id)
         article_info.title = title
         article_info.content = content
-        article_info.abstract = content[:200]
+        content_text1 = content.replace('<p>', '').replace('</p>', '').replace('&#39;', '')
+        # 去掉图片链接
+        content_text2 = re.sub('!\[\]\((.*?)\)', '', content_text1)
+        # 去掉markdown标签
+        pattern = '[\\\`\*\_\[\]\#\+\-\!\>]'
+        content_text3 = re.sub(pattern, '', content_text2)
+        article_info.abstract = content_text3[:150]
         article_info.url_img = img_url
         article_info.save()
         return Response(status=status.HTTP_200_OK)
@@ -179,10 +203,13 @@ def comment(request):
         comment_content = data.get('comment_content')
         user_email = data.get('user_email')
         send_email = data.get('send_email')
+
+        # 拿到用户ip地址
         if 'HTTP_X_FORWARDED_FOR' in request.META:
             ip = request.META['HTTP_X_FORWARDED_FOR']
         else:
             ip = request.META['REMOTE_ADDR']
+
         if data.get('parent'):
             parent_id = data.get('parent')
             reply_id = data.get('reply_to')
@@ -249,6 +276,20 @@ def tag_detail(request, tag_id):
     if request.method == 'DELETE':
         Tag.objects.get(id=tag_id).delete()
         return Response(status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def view_info(request):
+    if request.method == 'GET':
+        view_num = ViewInfo.objects.all().count()
+        # 统计不重复ip的访问数量
+        view_people = len(set(ViewInfo.objects.values_list('view_ip', flat=True)))
+
+        data = {
+            'view_num': view_num,
+            'view_people': view_people
+        }
+        return Response(data, status=status.HTTP_200_OK)
 
 
 class UserLoginAPIView(APIView):

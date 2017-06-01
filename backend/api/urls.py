@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from .views import article, article_detail, comment, tag, UserLoginAPIView,\
     manage, request_user, tag_detail, article_admin, article_detail_admin, tag_admin, change_img,\
-    archive_article
+    archive_article, view_info
 
 
 urlpatterns = [
@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^api/manage/$', manage),
     url(r'^api/request_user/$', request_user),
     url(r'^api/change_img/$', change_img),
-    url(r'^api/archive_articles/$', archive_article)
+    url(r'^api/archive_articles/$', archive_article),
+    url(r'^api/view_num/$', view_info),
 ]

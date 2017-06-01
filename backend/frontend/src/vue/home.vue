@@ -8,8 +8,8 @@
             <div class="article-content pure-u-1">
               <router-link :to="{ name: 'article', params: {id: article.id}}" class="article-head">{{article.title}}</router-link>
               <div class="date">{{article.create_time}}</div>
-              <p style="margin-bottom: 5px">
-                  {{article.abstract}}...
+              <p v-html="Marked(article.abstract)" style="margin-bottom: 5px">
+
                   <router-link :to="{ name: 'article', params: {id: article.id}}" id="read-more">Read more</router-link>
               </p>
               <router-link :to=" '/tag/' + tag.id" class="home-tag" v-for="tag in article.tag">{{tag.name}}</router-link>
@@ -79,7 +79,8 @@ export default {
           page = 1
         }
 
-        axios.get('/api/articles/?page='+ page).then(function(response) {
+        axios.get('http://127.0.0.1:8000/api/articles/?page='+ page).then(function(response) {
+            console.log(response);
             self.articles = response.data.data;
             self.page_list = response.data.page_list;
             self.now_page = response.data.now_page;

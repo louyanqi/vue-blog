@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Tag, Comment
+from .models import Article, Tag, Comment, ViewInfo
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -15,6 +15,11 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ['belong_to', 'comment_user', 'create_time']
 
 
+class ViewInfoAdmin(admin.ModelAdmin):
+    list_display = ['view_ip', 'view_time']
+
+
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(ViewInfo, ViewInfoAdmin)

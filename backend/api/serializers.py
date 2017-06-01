@@ -17,6 +17,15 @@ class ArticleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
+        fields = ['id', 'create_time', 'title', 'abstract', 'image', 'url_img', 'update_time', 'comment_num', 'tag']
+        depth = 1
+
+
+class ArticleDetailSerializer(serializers.ModelSerializer):
+    create_time = DateTimeFieldWihTZ(format='%Y.%m.%d %H:%M')
+
+    class Meta:
+        model = Article
         fields = '__all__'
         depth = 1
 

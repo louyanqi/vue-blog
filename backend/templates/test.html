@@ -10,21 +10,9 @@
     <script src="{% static 'js/axios.min.js' %}"></script>
 </head>
 <body>
-{% for comment in comment_list %}
-    <div>
-        {{comment.parent}}
-    </div>
-    <div>
-        {{comment.content}}
-    </div>
-    {% for child in comment.children %}
-        <h1>{{child.content}}</h1>
-    {% endfor %}
-    <div>
-
-    </div>
-    <br>
-{% endfor %}
+<p>
+    {{content}}
+</p>
 <!-- <div id="app">
 	<h1 v-for="article in articles">[[article.title]]</h1>
 	<h1 @click="getArticleList">[[test]]</h1>

@@ -3,6 +3,11 @@
     <div id="main">
 
         <div style="text-align: center;margin-top: 50px;" class="animated fadeIn">
+          <div class="view-num" style="margin-bottom: 30px ">
+            <div style="font-size: 22px">访问次数：{{view_num}}</div>
+            <div style="font-size: 22px">访问人数：{{view_people}} </div>
+          </div>
+
           <p>Leo</p>
 
 
@@ -19,15 +24,20 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
       showQQ: false,
+      view_num:'',
+      view_people:''
     }
   },
   created(){
     document.title = 'About',
-    this.about()
+    this.about(),
+    this.getView()
   },
   methods:{
     about:function() {
@@ -35,6 +45,14 @@ export default {
     },
     showQQSwitch:function() {
       this.showQQ = !this.showQQ
+    },
+    getView:function(){
+      var self = this;
+      axios.get('http://127.0.0.1:8000/api/view_num/').then(function(response){
+        console.log(response);
+        self.view_num = response.data.view_num;
+        self.view_people = response.data.view_people
+      })
     }
   }
 

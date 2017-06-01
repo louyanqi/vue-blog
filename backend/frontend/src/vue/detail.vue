@@ -14,20 +14,6 @@
             </div>
 
             <!-- 评论 -->
-            <button style="display: block;" v-show="!addComment" @click="showComment" class="pure-form pure-button animated fadeIn">添加评论</button>
-
-            <div v-show="addComment" class="pure-form animated fadeIn">
-                <input v-model="comment_user" type="text" class="pure-input-3-4" placeholder="你的名字...">
-                <input style="margin-top: 5px" v-model="user_email" type="text" class="pure-input-3-4" placeholder="你的邮箱...">
-                <textarea style="margin-top: 5px" v-model="comment_content" class="pure-input-3-4" placeholder="写下你的评论..."></textarea>
-                
-                <div style="width: 75%">
-                    <button @click="postComment" id="comment-btn" class="pure-button pure-input-1-6">评论</button>
-                    <button @click="cancelComment" class="pure-button pure-input-1-6">取消</button>
-                </div>
-                <input style="margin-top: 15px" type="checkbox" id="checkbox" v-model="checked">
-                <label for="checkbox">有新回复时给我发邮件</label>
-            </div>
             
             <div class="comment-top">{{article.comment_num}}条评论</div>
 
@@ -49,11 +35,11 @@
                         <span @click="showReplySwitch(comment)" class="reply-btn">回复</span>
                     </div>
 
-                    <!-- 评论框 -->
+                    <!-- 回复父评论评论框 -->
                     <div style="margin-top: 15px;margin-left: 40px;" v-show="comment.reply_window" class="pure-form reply animated fadeIn">
-                        <input v-model="comment_user" type="text" class="pure-input-3-4" placeholder="你的名字...">
-                        <input style="margin-top: 5px" v-model="user_email" type="text" class="pure-input-3-4" placeholder="你的邮箱...">
-                        <textarea style="margin-top: 5px" v-model="comment_content" class="pure-input-3-4" placeholder="写下你的评论..."></textarea>
+                        <input v-model="comment_user_parent" type="text" class="pure-input-3-4" placeholder="你的名字...">
+                        <input style="margin-top: 5px" v-model="user_email_parent" type="text" class="pure-input-3-4" placeholder="你的邮箱...">
+                        <textarea style="margin-top: 5px" v-model="comment_content_parent" class="pure-input-3-4" placeholder="写下你的评论..."></textarea>
                         <div style="width: 75%">
                             <button @click="postComment(comment)" class="pure-button pure-input-1-6">评论</button>
                             <button @click="showReplySwitch(comment)" class="pure-button pure-input-1-6">取消</button>
@@ -82,7 +68,7 @@
                                     <span @click="childReplySwitch(child_comment)" class="reply-btn">回复</span>
                                 </div>
 
-                                <!-- 评论框 -->
+                                <!-- 回复子评论评论框 -->
                                 <div style="margin-top: 15px;margin-left: 40px" v-show="child_comment.child_reply_input" class="pure-form reply animated fadeIn">
                                     <input v-model="comment_user" type="text" class="pure-input-3-4" placeholder="你的名字...">
                                     <input style="margin-top: 5px" v-model="user_email" type="text" class="pure-input-3-4" placeholder="你的邮箱...">
@@ -100,6 +86,21 @@
                     </div>
                 </li>
             </ul>
+            
+            <!-- 主评论框 -->
+            <div v-show="mainComment" class="pure-form animated fadeIn">
+                <input v-model="comment_user_parent" type="text" class="pure-input-3-4" placeholder="你的名字...">
+                <input style="margin-top: 5px" v-model="user_email_parent" type="text" class="pure-input-3-4" placeholder="你的邮箱...">
+                <textarea style="margin-top: 5px" v-model="comment_content_parent" class="pure-input-3-4" placeholder="写下你的评论..."></textarea>
+                
+                <div style="width: 75%">
+                    <button @click="postComment" id="comment-btn" class="pure-button pure-input-1-6">评论</button>
+                    <button @click="cancelComment" class="pure-button pure-input-1-6">取消</button>
+                </div>
+                <input style="margin-top: 15px" type="checkbox" id="checkbox" v-model="checked">
+                <label for="checkbox">有新回复时给我发邮件</label>
+            </div>
+
         </div>
     </div>
 
@@ -113,16 +114,19 @@
           checked: false,
 	      show: false,
           article: '',
-          addComment:false,
           comment_user:'',
           comment_content:'',
           user_email: '',
+          comment_user_parent:'',
+          comment_content_parent:'',
+          user_email_parent: '',
           commentList:[],
           content:'',
           pre_id: '',
           pre_title: '',
           next_id: '',
-          next_title: ''
+          next_title: '',
+          mainComment:true
 	    }
 	  },
       created() {
@@ -151,8 +155,10 @@
         childReplySwitch:function(child_comment) {
             var self = this;
             self.comment_user = '';
+            self.user_email = '';
             self.comment_content = '';
-            child_comment.child_reply_input = ! child_comment.child_reply_input
+            child_comment.child_reply_input = ! child_comment.child_reply_input;
+            self.mainComment = ! child_comment.child_reply_input;
         },
         getArticleFun:function(id){
             var self = this;
@@ -182,13 +188,9 @@
             document.body.scrollTop = 0;
             window.location.href = '/#/article/'+self.next_id
         },
-        showComment:function() {
-            this.addComment = true
-        },
         cancelComment:function() {
-            this.comment_user = '';
-            this.comment_content = '';
-            this.addComment = false
+            this.comment_user_parent = '';
+            this.comment_content_parent = '';
         },
         getComment:function(id) {
             var self = this;
@@ -204,18 +206,19 @@
             var self = this;
             axios.post('/api/comments/', {
                 article_id: id,
-                comment_user: self.comment_user,
-                comment_content: self.comment_content,
-                user_email: self.user_email,
+                comment_user: self.comment_user_parent,
+                comment_content: self.comment_content_parent,
+                user_email: self.user_email_parent,
                 parent: comment.id,
                 reply_to: comment.id,
                 send_email: self.checked
             }).then(function(response) {
                 self.getComment(id);
-                self.comment_user = '';
-                self.user_email = '',
-                self.comment_content = '';
+                self.comment_user_parent = '';
+                self.user_email_parent = '',
+                self.comment_content_parent = '';
                 self.checked = false;
+                self.mainComment = true;
                 self.article.comment_num += 1
             })
             .catch(function(error){
@@ -230,12 +233,17 @@
                 article_id: id,
                 comment_user: self.comment_user,
                 comment_content: self.comment_content,
+                user_email: self.user_email,
                 parent: comment.id,
-                reply_to: child_comment.id
+                reply_to: child_comment.id,
+                send_email: self.checked
             }).then(function(response) {
                 self.getComment(id);
                 self.comment_user = '';
+                self.user_email_parent = '',
                 self.comment_content = '';
+                self.checked = false;
+                self.mainComment = true;
                 self.article.comment_num += 1
             })
             .catch(function(error){
@@ -243,8 +251,9 @@
             })
         },
         showReplySwitch:function(comment) {
+            var self = this;
             comment.reply_window = !comment.reply_window;
-            this.addComment = false;
+            self.mainComment = !comment.reply_window;
         }
 	  }
 	}
