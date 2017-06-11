@@ -143,7 +143,7 @@
       },
 	  methods:{
         manageLogin:function() {
-          axios.get('http://127.0.0.1:8000/api/request_user/', {
+          axios.get('/api/request_user/', {
             headers:{ 'Authorization': 'Token ' + Cookies.get('token') }
           }).then(function(response){
             window.location.href = "/manage/"
@@ -165,7 +165,7 @@
             var self = this;
             var id = this.$route.params.id;
             self.show=false;
-            axios.get('http://127.0.0.1:8000/api/article/'+ id + '/').then(function(response) {
+            axios.get('/api/article/'+ id + '/').then(function(response) {
 
                 self.article = response.data.data;
                 document.title = self.article.title
@@ -197,7 +197,7 @@
         },
         getComment:function(id) {
             var self = this;
-            axios.get('http://127.0.0.1:8000/api/comments/?article_id='+id).then(function(response){
+            axios.get('/api/comments/?article_id='+id).then(function(response){
                 for(var a in response.data){
                     response.data[a].reply_window = false
                 }
@@ -207,7 +207,7 @@
         postComment:function(comment) {
             var id = this.$route.params.id
             var self = this;
-            axios.post('http://127.0.0.1:8000/api/comments/', {
+            axios.post('/api/comments/', {
                 article_id: id,
                 comment_user: self.comment_user_parent,
                 comment_content: self.comment_content_parent,
@@ -232,7 +232,7 @@
         replyComment:function(comment, child_comment) {
             var id = this.$route.params.id
             var self = this;
-            axios.post('http://127.0.0.1:8000/api/comments/', {
+            axios.post('/api/comments/', {
                 article_id: id,
                 comment_user: self.comment_user,
                 comment_content: self.comment_content,

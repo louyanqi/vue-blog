@@ -81,7 +81,7 @@ export default {
           page = 1
         }
 
-        axios.get('http://127.0.0.1:8000/api/articles/?page='+ page).then(function(response) {
+        axios.get('/api/articles/?page='+ page).then(function(response) {
             console.log(response);
             self.articles = response.data.data;
             self.page_list = response.data.page_list;
