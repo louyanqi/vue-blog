@@ -4,6 +4,7 @@
     <div id="main">
 
         <div class="articles">
+        
           <div v-for="article in articles" class="article animated fadeIn pure-g">
             <div class="article-content pure-u-1">
               <router-link :to="{ name: 'article', params: {id: article.id}}" class="article-head">{{article.title}}</router-link>
@@ -34,6 +35,7 @@
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>

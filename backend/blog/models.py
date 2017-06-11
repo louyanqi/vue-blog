@@ -6,6 +6,14 @@ from ckeditor_uploader.fields import RichTextUploadingField
 import re
 
 
+class FileManage(models.Model):
+    title = models.CharField(max_length=50)
+    file = models.FileField(upload_to='files/')
+
+    def __str__(self):
+        return self.title
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=20)
     create_time = models.DateTimeField(default=timezone.now)

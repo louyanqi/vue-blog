@@ -48,6 +48,7 @@
                 <div v-show="msgShow" class="message animated fadeIn">[[msg]] 
                     <span @click="closeMsg" class="close-icon">x</span>
                 </div>
+                <!-- 文章标题 -->
                 <div class="article-content-header">
                     <input v-model="article_info.title" class="article-input-title">
                 </div>
@@ -69,7 +70,7 @@
                     </ul>
 
                 </div>
-                
+                <!-- 文章内容 -->
                 <div class="textarea-container">
                     <textarea v-model="content" id="article-textarea" class="article-textarea" :style="{height: (getscrollHeight-180) + 'px'}">
                     </textarea>
@@ -239,6 +240,7 @@
                     self.articles[a].article_active = false
                 };
                 axios.get('/api/article_admin/'+ id + '/').then(function(response){
+                    console.log(response);
                     self.article_info = response.data;
                     article.article_active = true;
                     self.content = self.article_info.content;

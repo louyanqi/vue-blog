@@ -1,0 +1,265 @@
+body { font-family: Georgia,"微软雅黑";   }
+
+
+a{
+    text-decoration:none;
+    color:#666;
+    display:inline-block;
+    cursor: pointer;
+}
+a:hover{text-decoration:none;}
+.main{
+    max-width: 85%;
+    margin: 0 auto;
+}
+
+.header{
+	margin-bottom: 40px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.page-title{
+    font-size: 29px;
+    text-decoration-line: none;
+    margin-bottom: 20px
+}
+
+.page-left{
+	padding-top: 50px;
+    border-right: 1px solid #d4d4d4;
+    height: 100%;
+}
+
+.nav{
+	margin-bottom: 10px;
+}
+.btn.btn-default{
+	background-color: #4A545E;
+	width: 90px;
+    height: 30px;
+    border-radius: 0px;
+    border-color: #4A545E;
+    margin-bottom: 10px;
+    margin-right: 15px;
+    color: white
+}
+
+.btn.btn-default.active{
+	background-color: #E15B5A;
+	width: 90px;
+    height: 30px;
+    border-radius: 0px;
+    border-color: #E15B5A;
+    margin-bottom: 10px;
+    margin-right: 15px;
+    color: white
+}
+.page-right{
+	padding-top: 50px;
+    margin-left: 35px;
+}
+
+ul{
+	list-style: none;
+	padding: 0;
+}
+
+
+
+.form-control{
+	border-radius: 0px
+}
+
+.tags{
+    border-top: 1px solid #d4d4d4;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.tag{
+    margin-right: 15px;
+    display: inline-block;
+    font-size: 15px
+}
+
+.nav.nav-pills{
+    margin-bottom: 0;
+}
+
+.search{
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #d4d4d4;
+    padding-top: 20px;
+}
+
+.random.articles{
+        border-top: 1px solid #d4d4d4;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.content{
+    font-size: 16px;
+    padding-top: 15px;
+}
+
+.readmore{
+    margin-left: 80%
+}
+
+/*.article{
+    border-bottom: 1px solid #d4d4d4;
+    padding-bottom: 20px;
+    padding-top: 20px
+}*/
+
+
+
+.article {
+    border-bottom: 1px solid #EEEEEE;
+    height: auto;
+    padding-bottom: 20px;
+    min-width: 580px
+}
+
+.article-content{
+    padding-right: 50px;
+    flex: 1;
+    display: inline-block;
+}
+
+
+.article-head {
+    margin: 20px 0 5px 0;
+    color: #333333;
+    font-size: 19px;
+    position: relative;
+    text-decoration: none
+}
+
+
+.article-head:after{
+    content: '';
+    position: absolute;
+    z-index: -1;
+    height: 2px;
+    bottom: 0;
+    left: 51%;
+    right: 51%;
+    background: #981e1e;
+    transition-duration: 0.1s;
+    transition-property: right, left;
+    transition-timing-function: ease-out;
+}
+
+
+.article-head:hover::after{
+    left: 0;
+    right: 0;
+}
+
+.article-head:hover,
+.article-head:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.date{
+    font-size: 13px;
+    color: #717171;
+}
+
+#read-more{
+    font-size: 18px;
+    color: #981e1e;
+    text-decoration: blink;
+    float: right;
+}
+
+#read-more:hover{
+    text-decoration: underline;
+}
+
+.article-image {
+    max-width: 24%;
+    background-size: cover;
+    background-position: center;
+    height: 82px;
+    min-width: 120px;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+.home-tag{
+    text-decoration: none;
+    margin-top: 15px;
+    border: 1px solid #7b7b7b;
+    margin-right: 3px;
+    border-radius: 5px;
+    padding: 0 3px 0 3px;
+    color: #444444;
+    font-size: 13px;
+    cursor: pointer;
+}
+.home-tag:hover,
+.home-tag:focus{
+    background-color: #3a3838;
+    color: white;
+    border: 1px solid #3a3838;
+}
+
+.pagination{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.choze{
+    background-color: #EEEEEE
+}
+
+
+@media (max-width: 1170px) {
+    .form-inline .form-control{
+        width: 70%
+    }
+    .form-control-feedback{
+        left: 100px
+    }
+}
+
+.random-article-head{
+    font-size: 16px;
+    color: black;
+    margin-bottom: 5px;
+}
+
+.block-title{
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.nav-btn{
+    color: white;
+    width: 60px
+}
+
+.nav-btn:hover,
+.nav-btn:focus{
+    color: white
+}
+
+.page-menu{
+    font-size: 15px;
+    color: black;
+    margin-right: 20px;
+
+}

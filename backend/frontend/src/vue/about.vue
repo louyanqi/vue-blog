@@ -48,7 +48,7 @@ export default {
     },
     getView:function(){
       var self = this;
-      axios.get('http://127.0.0.1:8000/api/view_num/').then(function(response){
+      axios.get('/api/view_num/').then(function(response){
         console.log(response);
         self.view_num = response.data.view_num;
         self.view_people = response.data.view_people

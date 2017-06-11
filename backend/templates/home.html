@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <title>kirito's blog | 无法舍弃，不能改变</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/set.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icon/iconfont.css' %}">
+</head>
+<body>
+    <div class="row main" id="app">
+    	<div class="col-sm-3 page-left" >
+	
+			<div class="head">
+    			<a href="/" class="page-title">Kirito</a>
+    			
+    		</div>
+
+    		<div class="nav">
+    			<div class="btn btn-default active"><a class="nav-btn" href="/">首页</a></div>
+    			<div class="btn btn-default" ><a class="nav-btn" href="/sig/#/tag">标签</a></div>
+    			<div class="btn btn-default"><a class="nav-btn" href="/sig/#/archives" href="">归档</a></div>
+    			<div class="btn btn-default"><a class="nav-btn" href="/sig/#/about">关于</a></div>
+    		</div>
+
+    		<div class="search">
+    			<form class="form-inline">
+				  <div class="form-group has-feedback" style="width: 200px">
+				    <input type="text" class="form-control" placeholder="Search">
+				    <span class="glyphicon glyphicon-search form-control-feedback " aria-hidden="true"></span>
+				  </div>
+				</form>
+    		</div>
+
+    		<div class="tags">
+    			<p class="block-title">文 章 标 签</p>
+    			<div v-for="tag in tags" class="tag"><a :href="'/sig/#/tag/' + tag.id">[[tag.name]]([[tag.article_num]])</a></div>
+    		</div>
+
+    		<div class="random articles">
+    			<p class="block-title">随 机 文 章</p>
+    			<ul>
+    				<li v-for="random_article in random_articles"><a class="random-article-head" :href=" '/sig#/article/'+random_article.id">[[random_article.title]]</a></li>
+    			</ul>
+    		</div>
+
+    		<div class="footer">
+				<div style="margin-top: 30px">
+		            <a id="about-icon" href="http://www.jianshu.com/u/c4adda69f8eb"><i class="iconfont icon-jian"></i></a>
+		            <a id="about-icon" href="http://weibo.com/5180092490/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1"><i class="iconfont icon-weibo"></i></a>
+		            <a id="about-icon" href="https://github.com/lou147"><i class="iconfont icon-github"></i></a>
+		        </div>
+				@ 2017 Copyright
+			</div>
+    	</div>
+		
+
+	 	<div class="col-sm-8 page-right">
+	 		<div v-for="article in articles" class="article animated fadeIn pure-g">
+
+	            <div class="article-content">
+	              <a :href=" '/sig#/article/'+article.id" class="article-head">[[article.title]]</a>
+	              <div class="date">[[article.create_time]]</div>
+
+	              <div v-if="article.url_img" class="article-image" :style="{'background-image': 'url(' + article.url_img +')'}"></div>
+	              <p v-if="article.url_img" style="display: inline-block;width: 75%;padding-left: 10px;color: #484848"  v-html="Marked(article.abstract)" style="margin-bottom: 5px">
+	              <p v-if="!article.url_img" style="display: inline-block;width: 100%;color: #484848"  v-html="Marked(article.abstract)" style="margin-bottom: 5px">
+
+	              </p><a :href=" '/sig#/article/'+article.id" id="read-more">Read more</a>
+	              
+	              <a class="home-tag" v-for="tag in article.tag" :href="'/sig/#/tag/' + tag.id">[[tag.name]]</a>
+	              <a style="padding: 0 3px 0 3px;"></a>
+	            </div>
+            	
+          </div>
+
+	 		<div class="pagination">
+		 		<div class="btn-toolbar">
+		 		  <div v-if="pre_list" class="btn-group">
+				  	<a class="page-menu" @click="getPreList">上一页</a>
+				  </div>
+
+				  <div v-if="now_page==page" v-for="page in page_list" class="btn-group choze"  >
+				  	<a class="page-menu" :href=" '/?page=' + page">[[page]]</a>
+				  </div>
+
+				  <div v-else  class="btn-group"  >
+				  	<a class="page-menu" :href=" '/?page=' + page">[[page]]</a>
+				  </div>
+
+				  <div v-if="next_list" class="btn-group"  >
+				  	<a class="page-menu" @click="getNextList">下一页</a>
+				  </div>
+
+				</div>
+
+	        </div>
+	 	</div>
+	</div>
+	<script src="{% static 'js/vue.js' %}"></script>
+	<script src="{% static 'js/axios.min.js' %}"></script>
+	<script src="{% static 'js/marked.min.js' %}"></script>
+	<script src="{% static 'js/js.cookie.js' %}"></script>
+	<script src="http://apps.bdimg.com/libs/highlight.js/9.1.0/highlight.min.js"></script>
+
+	<script>
+		vm = new Vue({
+			el:'#app',
+			data:{
+				show: false,
+		    	articles: [],
+		    	random_articles:[],
+		    	page_list:[],
+		    	now_page:'',
+		    	isActive:true,
+		    	pre_list:'',
+		    	next_list:'',
+		    	loadShow: true,
+		    	page: 1,
+		    	tags:[]
+			},
+			delimiters: ["[[", "]]"],
+			created(){
+				this.getpage(),
+				this.getArticleList(1),
+				this.getTag(),
+				this.getRandom()
+			},
+			methods:{
+				Marked:function(content) {
+			      return marked(content)
+			    },
+			    getpage:function GetRequest() {
+			      var self = this;
+				  var url = location.search; //获取url中"?"符后的字串
+				  if (url.indexOf("?") != -1) {  //判断是否有参数
+				   var str = url.substr(1); //从第一个字符开始 因为第0个是?号 获取所有除问号的所有符串
+				   strs = str.split("=");  //用等号进行分隔 （因为知道只有一个参数 所以直接用等号进分隔 如果有多个参数 要用&号分隔 再用等号进行分隔）
+				   self.page = strs[1]
+				  }
+				},
+			    getArticleList:function() {
+			        var self = this;
+			        console.log(self.page)
+			        axios.get('/api/articles/?page='+ self.page).then(function(response) {
+			            self.articles = response.data.data;
+			            self.page_list = response.data.page_list;
+			            self.now_page = response.data.now_page;
+			            self.pre_list = response.data.pre_list;
+			            self.next_list = response.data.next_list;
+			        })
+			        .catch(function(error){
+
+			        })
+			    },
+			    getRandom:function() {
+			    	var self = this;
+			    	axios.get('/api/random_articles/').then(function(response) {
+			    		console.log(response);
+			            self.random_articles = response.data;
+			            
+			        })
+			        .catch(function(error){
+
+			        })
+			    },
+			    getTag:function() {
+			      var self = this;
+			      axios.get('/api/tags/').then(function(response) {
+			        for (var t in response.data){
+			          response.data[t].tag_active = false
+			        }
+			        self.tags = response.data;
+			      })
+			    },
+			    getPreList:function() {
+			      var self = this;
+			      window.location.href = '/?page=' + (parseInt(self.now_page)-1)
+			    },
+			    getNextList:function() {
+			      var self = this;
+			      window.location.href = '/?page=' + (parseInt(self.now_page)+1)
+			    },
+			}
+		})
+	</script>
+</body>
+</html>

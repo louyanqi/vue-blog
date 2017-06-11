@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Tag, Comment, ViewInfo
+from .models import Article, Tag, Comment, ViewInfo, FileManage
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -23,3 +23,4 @@ admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(ViewInfo, ViewInfoAdmin)
+admin.site.register(FileManage)

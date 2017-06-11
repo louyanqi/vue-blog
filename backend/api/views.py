@@ -69,6 +69,16 @@ def article(request):
         return Response(data, status=status.HTTP_200_OK)
 
 
+# 首页随机文章
+@api_view(['GET'])
+def random_article(request):
+    if request.method == 'GET':
+        article_list = Article.objects.all().order_by('?')[1:7]
+        serializer = ArchiveArticleSerializer(article_list, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 @api_view(['GET', 'POST'])
 def article_admin(request):
     if request.method == 'GET':
@@ -140,7 +150,7 @@ def article_detail(request, article_id):
 def article_detail_admin(request, article_id):
     article_info = get_object_or_404(Article, id=article_id)
     if request.method == "GET":
-        serializer = ArticleSerializer(article_info)
+        serializer = ArticleDetailSerializer(article_info)
         return Response(serializer.data, status=status.HTTP_200_OK)
     if request.method == 'POST':
         data = request.data
@@ -228,7 +238,7 @@ def comment(request):
                                    send_email=send_email, user_email=user_email, user_ip=ip)
         comment_info.save()
         article_info = Article.objects.get(id=article_id)
-        article_info.comment_num = Comment.objects.all().count()
+        article_info.comment_num = Comment.objects.filter(belong_to_id=article_id).count()
         article_info.save()
         return Response(status=status.HTTP_200_OK)
 

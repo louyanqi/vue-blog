@@ -1,11 +1,12 @@
 from django.conf.urls import url
 from .views import article, article_detail, comment, tag, UserLoginAPIView,\
     manage, request_user, tag_detail, article_admin, article_detail_admin, tag_admin, change_img,\
-    archive_article, view_info
+    archive_article, view_info, random_article
 
 
 urlpatterns = [
     url(r'^api/articles/$', article),
+    url(r'^api/random_articles/$', random_article),
     url(r'^api/articles_admin/$', article_admin),
     url(r'^api/article/(?P<article_id>\d+)/$', article_detail),
     url(r'^api/article_admin/(?P<article_id>\d+)/$', article_detail_admin),

@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from blog.views import test, manage
+from blog.views import manage_file, manage, home
 from django.views.generic import TemplateView
 from django.conf.urls import handler404, handler500
 
@@ -29,9 +29,10 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('api.urls')),
     url(r'ckeditor/', include('ckeditor_uploader.urls')),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='home'),
-    url(r'^test/$', test, name='test'),
-    url(r'^manage/$', manage)
+    url(r'^sig/$', TemplateView.as_view(template_name='index.html'), name='home'),
+    url(r'^test/$', manage_file, name='test'),
+    url(r'^manage/$', manage),
+    url(r'^$', home)
 ]
 
 if settings.DEBUG:

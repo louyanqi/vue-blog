@@ -10,9 +10,16 @@
     <script src="{% static 'js/axios.min.js' %}"></script>
 </head>
 <body>
-<p>
-    {{content}}
-</p>
+{% for file in file_list %}
+<h1>
+    <span><a href="/media/{{file.file}}">{{file.title}}</a></span>
+</h1>
+{% endfor %}
+<form action="/test/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Submit">
+</form>
 <!-- <div id="app">
 	<h1 v-for="article in articles">[[article.title]]</h1>
 	<h1 @click="getArticleList">[[test]]</h1>
